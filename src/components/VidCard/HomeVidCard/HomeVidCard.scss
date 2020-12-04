@@ -1,0 +1,86 @@
+@import '../../../shared/sass/variables.scss';
+@import '../../../shared/sass/mixins.scss';
+
+.home-vid-card {
+
+    margin-bottom: 40px;
+    margin-right: 20px;
+    flex: 1 1 0;
+
+    .img-container {
+        min-width: 15rem;
+        // max-width: 20rem;
+        background-color: $color-grey-l4;
+        
+        position: relative;
+        overflow: hidden;
+        // height: 100%;
+        padding-top: 56%;
+        margin-bottom: 10px;
+        
+        div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+
+            img {
+                position: absolute;
+                top: -50%;
+                left: 0;
+                width: 100%;
+                transform: translateY(50%);
+            }
+    
+            p {
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+                z-index: 100;
+                font-size: 0.8rem;
+                font-weight: 500;
+                color: $color-white;
+                padding: 2px 3px;
+                border-radius: 3px;
+                background-color: rgba($color-black, 0.85);
+            }
+        }
+    }
+
+    .details {
+        display: flex;
+        justify-content: flex-start;
+
+        .c-img {
+            margin-right: 10px;
+        }
+
+        &__text {
+            font-size: 0.9rem;
+            h3 {
+                font-weight: 500;
+                font-size: 0.9rem;
+                color: $color-black;
+                margin-bottom: 4px;
+            }
+
+            p {
+                display: flex;
+                align-items: center;
+                color: $color-grey-d1;
+
+                .s-circle {
+                    width: 3px;
+                    height: 3px;
+                    margin: 0 5px;
+                    background-color: $color-grey-d1;
+                    display: inline-block;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+
+}

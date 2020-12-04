@@ -1,0 +1,113 @@
+@import "../../shared/sass/mixins.scss";
+@import "../../shared/sass/variables.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-white;
+  height: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+
+  .icon {
+    color: $color-grey-d1;
+    cursor: pointer;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 1.2rem;
+      object-fit: contain;
+    }
+
+    .icon {
+      margin-right: 20px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+
+    .login-button {
+      height: 2.5rem;
+      border: 1px solid $color-blue;
+      border-radius: 2px;
+      color: $color-blue;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 7rem;
+      padding: 0 11px;
+      font-weight: 700;
+      font-size: 0.9rem;
+
+      .icon {
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        background-color: $color-blue;
+        color: $color-white;
+      }
+    }
+
+    .icon {
+      margin-right: 20px;
+    }
+  }
+
+  &__center {
+    width: 70%;
+    max-width: 43rem;
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    border: 1px solid $color-l-grey;
+    padding-left: 10px;
+    margin: 0 40px;
+    box-shadow: inset $shadow-1;
+
+    input {
+      height: 95%;
+      width: calc(100% - 65px);
+      border: none;
+      padding-right: 10px;
+
+      &:active,
+      &:focus {
+          outline: none;
+      }
+    }
+
+    div {
+      width: 65px;
+      height: 100%;
+      border-left: 1px solid $color-l-grey;
+      background-color: $color-grey-l1;
+      cursor: pointer;
+
+      &:hover {
+          background-color: $color-grey-l2;
+          box-shadow: $shadow-1;
+
+          .icon {
+            opacity: 1;
+          }
+      }
+
+      @include centerContent;
+      .icon {
+        height: 20px;
+        opacity: 0.7;
+      }
+    }
+  }
+}
