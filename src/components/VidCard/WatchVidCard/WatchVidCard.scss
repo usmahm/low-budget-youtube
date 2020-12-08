@@ -1,0 +1,77 @@
+@import "../../../shared/sass/variables.scss";
+@import "../../../shared/sass/mixins.scss";
+
+.watch-vid-card {
+    display: flex;
+    margin-bottom: 15px;
+    // max-width: 51rem;
+    // width: 100%;
+
+  .img-container {
+    background-color: $color-grey-l4;
+
+    position: relative;
+    // overflow: hidden;
+
+    div {
+      width: 10.5rem;
+      height: 5.875rem;
+
+      img {
+        position: absolute;
+        top: -50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(50%);
+      }
+
+      p {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        z-index: 100;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: $color-white;
+        padding: 2px 3px;
+        border-radius: 3px;
+        background-color: rgba($color-black, 0.85);
+      }
+    }
+  }
+
+  .details {
+    // padding: 3px 0 0 7px;
+    padding-left: 7px;
+
+    h3 {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: $color-black;
+      margin-bottom: 4px;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      color: $color-grey-d1;
+      font-size: 0.75rem;
+
+      &.channel__name {
+          margin: 8px 0 4px 0;
+      }
+
+      &:last-of-type {        
+        .s-circle {
+          width: 3px;
+          height: 3px;
+          margin: 0 5px;
+          background-color: $color-grey-d1;
+          display: inline-block;
+          border-radius: 50%;
+        }
+      }
+
+    }
+  }
+}

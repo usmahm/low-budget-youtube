@@ -9,7 +9,7 @@ const TrendingVidCard = props => {
         <div className="trending-vid-card">
             <div className="img-container">
                 <div>
-                    <img src={`https://img.youtube.com/vi/${vidData.videoId}/mqdefault.jpg`} alt={vidData.title} />
+                    <img src={vidData.image} alt={vidData.title} />
                     <p className="duration">{vidData.duration}</p>
                 </div>
             </div>
