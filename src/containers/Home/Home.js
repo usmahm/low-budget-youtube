@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from "react";
-
 import useHttp from "../../hooks/useHttp";
 
 import HomeVidCard from "../../components/VidCard/HomeVidCard/HomeVidCard";
@@ -41,7 +40,7 @@ const homeReducer = (curHomeState, action) => {
 
 const MainPage = (props) => {
   const [homeState, dispatchHome] = useReducer(homeReducer, initialState);
-  const { error, data, isLoading, sendRequest, reqExtra } = useHttp();
+  const { data, sendRequest, reqExtra } = useHttp();
 
   const APIKey = "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8";
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
@@ -49,7 +48,7 @@ const MainPage = (props) => {
   CORSAnywhereURL = "";
 
   useEffect(() => {
-    const url = `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=20&regionCode=${regionCode}&key=${APIKey}`;
+    const url = `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&key=${APIKey}`;
     sendRequest(url);
   }, [sendRequest, CORSAnywhereURL]);
 

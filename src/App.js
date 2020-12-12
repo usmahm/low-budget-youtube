@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 // import axios from "axios";
 
 import Sidebar from "./containers/Sidebar/Sidebar";
@@ -24,7 +24,7 @@ const App = props => {
   return (
     <div className="App">
       <Header />
-      {/* <Sidebar /> */}
+      <Sidebar />
       {routes}
     </div>
   );

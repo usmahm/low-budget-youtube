@@ -1,15 +1,21 @@
+import moment from "moment";
+
 export const parseDuration = (string) => {
-  const removedString = ["D", "H", "M"];
-  let length = "";
-  for (let i = 2; i < string.length - 1; i++) {
-    if (removedString.includes(string[i])) {
-      length = length + ":";
-    } else {
-      length = length + string[i];
+  const data = moment.duration(string)._data; 
+  let duration = "";
+
+  duration = duration + `:${data.seconds.toString().length === 1 ? '0' + data.seconds : data.seconds}`;
+  
+  if (string.length <= 6) { // The duration is less than  a minue
+    duration = `${data.minutes}` + duration
+  } else if (string.length > 6) { 
+    duration = `${data.minutes}` + duration;
+    
+    if (data.hours !== 0) { // The duration is greater than an hour
+      duration = `${data.hours}:` + duration;
     }
   }
-
-  return length;
+  return duration;
 };
 
 export const parseTime = (string) => {
@@ -59,8 +65,12 @@ export const parseTime = (string) => {
 export const parseText = (text, noOfChars) => {
   const textArray = text.split(" ");
   const newArray = [];
-
   let currCharLength = 0;
+
+  if (text.length < noOfChars) {
+    return text
+  }
+  
   textArray.forEach((currWord, i) => {
     if (currCharLength + currWord.length > noOfChars) {
       return;
