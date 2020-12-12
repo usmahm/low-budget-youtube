@@ -73,26 +73,31 @@ export const parseText = (text, noOfChars) => {
   return `${newArray.join(" ")}...`;
 };
 
-export const parseViewCount = (string) => {
+export const parseNumber = (string, method) => {
   let views = "";
-  const truncateDecPlc = (num) =>
-    num.toString().match(/^-?\d+(?:\.\d{0,1})?/)[0];
-  if (string.length <= 3) {
-    // views = views
-  } else if (string.length <= 6) {
-    views = `${Math.floor(+string / 1000)}K`;
-  } else if (string.length <= 9) {
-    views = truncateDecPlc(+string / 1000000).toString();
-    const lastDig = views.slice(-1);
-    views = `${
-      lastDig === "0" ? views.substring(0, views.length - 2) : views
-    }M`;
-  } else if (string.length <= 12) {
-    views = truncateDecPlc(+string / 1000000000);
-    const lastDig = views.slice(-1);
-    views = `${
-      lastDig === "0" ? views.substring(0, views.length - 2) : views
-    }B`;
+
+  if (!method) {   
+    const truncateDecPlc = (num) =>
+      num.toString().match(/^-?\d+(?:\.\d{0,1})?/)[0];
+    if (string.length <= 3) {
+      views = string;
+    } else if (string.length <= 6) {
+      views = `${Math.floor(+string / 1000)}K`;
+    } else if (string.length <= 9) {
+      views = truncateDecPlc(+string / 1000000).toString();
+      const lastDig = views.slice(-1);
+      views = `${
+        lastDig === "0" ? views.substring(0, views.length - 2) : views
+      }M`;
+    } else if (string.length <= 12) {
+      views = truncateDecPlc(+string / 1000000000);
+      const lastDig = views.slice(-1);
+      views = `${
+        lastDig === "0" ? views.substring(0, views.length - 2) : views
+      }B`;
+    }
+  } else if (method === 'SEPERATE_BY_COMMA') {
+    views = string.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
 
   return views;

@@ -1,0 +1,124 @@
+@import "../../../shared/sass/variables.scss";
+@import "../../../shared/sass/mixins.scss";
+
+.about-video {
+  margin-top: 20px;
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+
+  div.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 1rem;
+    margin-top: 10px;
+    border-bottom: 1px solid $color-grey-l5;
+
+    p {
+      color: $color-grey-d1;
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+
+      .s-circle {
+        width: 3px;
+        height: 3px;
+        margin: 0 5px;
+        background-color: $color-grey-d1;
+        display: inline-block;
+        border-radius: 50%;
+      }
+    }
+
+    .actions {
+      font-weight: 500;
+      color: $color-grey-d1;
+      display: flex;
+      align-items: center;
+
+      span {
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        padding-right: 18px;
+
+        &.upvotes,
+        &.downvotes {
+          border-bottom: 2px solid $color-grey-d1;
+        }
+
+        .icon {
+          margin-right: 5px;
+          width: 1.4rem;
+        }
+
+        &.download {
+            color: $color-blue;
+            padding-right: 0;
+        }
+      }
+    }
+  }
+
+  div.buttom {
+      border-bottom: 1px solid $color-grey-l5;
+      
+      .channel-details {
+        padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: 12.8px;
+          height: 3rem;
+          width: 3rem;
+        }
+
+        span {
+          p {
+            color: $color-grey-d1;
+            font-size: 0.9rem;
+          }
+
+          .channel-name {
+            color: $color-black;
+            font-size: 0.91rem;
+            font-weight: 500;
+          }
+        }
+      }
+
+      button {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #ffffff;
+        background-color: red;
+        padding: 10px 15px;
+        appearance: none;
+        border: none;
+        border-radius: 2px;
+      }
+    }
+   
+    .video-description {
+      padding-left: 3.8rem;
+      padding-right: 6.6rem;
+
+      p {
+          font-size: 0.9rem;
+          padding-bottom: 20px;
+          line-height: 1.5;
+      }
+    }
+
+  }
+}

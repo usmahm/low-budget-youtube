@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Link} from 'react-router-dom';
+// import { BrowserRouter, Link} from 'react-router-dom';
 import NavigationItem from '../../components/UI/NavigationItem/NavigationItem';
 import './Sidebar.scss'
 
@@ -15,7 +15,6 @@ import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
 
 const Sidebar = () => {
   return (
-      <BrowserRouter>
         <ul className="sidenav">
             <NavigationItem exact link="/" icon={HomeIcon} title="Home" />
             <NavigationItem link="/trending" icon={WhatshotIcon} title="Trending" />
@@ -28,7 +27,6 @@ const Sidebar = () => {
             <NavigationItem link="/liked-videos" icon={ThumbUpAltOutlinedIcon} title="Liked videos" />
             <NavigationItem link="/liked-videos" icon={ExpandMoreOutlinedIcon} title="Show more" />
         </ul>
-      </BrowserRouter>
     );
 };
 

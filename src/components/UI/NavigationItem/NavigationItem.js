@@ -10,7 +10,6 @@ const NavigationItem = props => {
              <NavLink
                  to={props.link}
                  exact={props.exact}
-                 activeClassName="active"
                  className="navigation-link">
 
                  {props.icon ? <Icon className="navigation__icon" /> : null}

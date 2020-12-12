@@ -3,8 +3,8 @@
 
 .home-vid-card {
 
+    margin: 0 8px;
     margin-bottom: 40px;
-    margin-right: 20px;
     flex: 1 1 0;
 
     .img-container {
@@ -69,6 +69,7 @@
                 display: flex;
                 align-items: center;
                 color: $color-grey-d1;
+                font-size: 0.9rem;
 
                 .s-circle {
                     width: 3px;

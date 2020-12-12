@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Switch, BrowserRouter, withRouter, Redirect } from 'react-router-dom'
+import React, { Fragment } from "react";
+import { Route, Redirect } from 'react-router-dom'
 // import axios from "axios";
 
 import Sidebar from "./containers/Sidebar/Sidebar";
@@ -13,21 +13,21 @@ import "./App.scss";
 
 const App = props => {
   let routes = (
-    <Switch>
-      <Route path="/watch" component={WatchVid} />
+    <Fragment>
+      <Route path="/subscription" component={WatchVid} />
       <Route path='/trending' component={Trending} />
       <Route exact path="/" component={Home} />
-      <Redirect to="/" />
-    </Switch>
+      {/* <Redirect to="/" /> */}
+    </Fragment>
   )
 
   return (
     <div className="App">
       <Header />
-      <Sidebar />
-      <BrowserRouter>{routes}</BrowserRouter>
+      {/* <Sidebar /> */}
+      {routes}
     </div>
   );
 }
 
-export default withRouter(App);
+export default App;

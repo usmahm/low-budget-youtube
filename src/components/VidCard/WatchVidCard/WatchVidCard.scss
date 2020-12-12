@@ -3,7 +3,7 @@
 
 .watch-vid-card {
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     // max-width: 51rem;
     // width: 100%;
 
@@ -16,13 +16,15 @@
     div {
       width: 10.5rem;
       height: 5.875rem;
+      overflow: hidden;
+      position: relative;
 
       img {
         position: absolute;
         top: -50%;
         left: 0;
         width: 100%;
-        transform: translateY(50%);
+        transform: translateY(25%);
       }
 
       p {

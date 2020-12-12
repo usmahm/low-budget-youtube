@@ -8,17 +8,17 @@ import {
   parseDuration,
   parseTime,
   parseText,
-  parseViewCount,
+  parseNumber,
 } from "../../shared/utilities";
 
 const initialState = {
-  trendingVideos: null
+  videosData: null
 }
 
 const trendingReducer = (curTrenddingState, action) => {
   switch (action.type) {
     case 'SET':
-      return { ...curTrenddingState, trendingVideos: action.trendingVideos}
+      return { ...curTrenddingState, videosData: action.trendingVideos}
     default:
       throw new Error('Should not be reached!')
   }
@@ -26,37 +26,48 @@ const trendingReducer = (curTrenddingState, action) => {
 
 const Trending = (props) => {
   const [trendingState, dispatchTrending] = useReducer(trendingReducer, initialState)
-  
-  const { error, data, isLoading, sendRequest } = useHttp()
+  const { error, data, isLoading, sendRequest, reqExtra } = useHttp();
+
+  const APIKey = "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8";
+  let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
+  const regionCode = "CD";
+  CORSAnywhereURL = "";
+
 
   useEffect(() => {
-    sendRequest()
-  }, [sendRequest])
+    const url = `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=20&regionCode=${regionCode}&key=${APIKey}`;
+    sendRequest(url);
+  }, [sendRequest, CORSAnywhereURL])
 
   useEffect(() => {
+    console.log(data);
+    const videoDataArray = [];
+
     if (data) {
-      console.log(data)
-      const parsedData = data.map(vidData => {
-        return {
-          ...vidData,
-          viewCount: parseViewCount(vidData.viewCount),
-          description: parseText(vidData.description, 160), //50
-          title: parseText(vidData.title, 100),
-          duration: parseDuration(vidData.duration),
-          datePosted: parseTime(vidData.datePosted),
-        }
-      })
-    {/* <Trending videosData={parseVidsData(videosData, 188, 100)} /> */}
-
-
-      dispatchTrending({type: 'SET', trendingVideos: parsedData})
+      if (!reqExtra) {
+        data.items.forEach((vidData) => {
+          const parsedData = {
+            viewCount: parseNumber(vidData.statistics.viewCount),
+            channelName: vidData.snippet.channelTitle,
+            description: parseText(vidData.snippet.description, 160),
+            title: parseText(vidData.snippet.title, 100),
+            duration: parseDuration(vidData.contentDetails.duration),
+            datePosted: parseTime(vidData.snippet.publishedAt),
+            embedHTML: vidData.player.embedHtml,
+            image: `https://img.youtube.com/vi/${vidData.id}/mqdefault.jpg`,
+            videoId: vidData.id,
+            channelID: vidData.snippet.channelId,
+          };
+          videoDataArray.push(parsedData);
+        });
+        dispatchTrending({ type: "SET", trendingVideos: videoDataArray });
+      }
     }
-  }, [data, error, isLoading])
+  }, [data, error, reqExtra, isLoading])
 
-    // console.log(props.videosData)
   return (
     <div className="trending">
-      {trendingState.trendingVideos ? trendingState.trendingVideos.map((vidData) => (
+      {trendingState.videosData ? trendingState.videosData.map((vidData) => (
         <TrendingVidCard key={vidData.videoId} videosData={vidData} />
       )) : <p>Loading...</p>}
     </div>
