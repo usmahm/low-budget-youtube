@@ -1,9 +1,11 @@
 import React from 'react'
+// import { withRouter } from 'react-router-dom'
 
 import './WatchVidCard.scss'
 
 const WatchVidCard = props => {
     const videoDetails = props.videoDetails
+    // console.log(props)
 
     return (
         <div className="watch-vid-card">

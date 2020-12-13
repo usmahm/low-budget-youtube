@@ -44,7 +44,7 @@ const MainPage = (props) => {
 
   const APIKey = "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8";
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
-  const regionCode = "CD";
+  const regionCode = "NG";
   CORSAnywhereURL = "";
 
   useEffect(() => {

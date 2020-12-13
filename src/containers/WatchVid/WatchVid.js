@@ -1,5 +1,9 @@
 import React, { useEffect, useReducer } from "react";
 
+import queryString from 'query-string';
+// import { withRouter } from 'react-router-dom'
+
+
 import useHttp from "../../hooks/useHttp";
 import WatchVidCard from "../../components/VidCard/WatchVidCard/WatchVidCard";
 import AboutVid from "../../components/WatchVid/AboutVids/AboutVid";
@@ -68,7 +72,8 @@ const WatchVid = (props) => {
     initialState
   );
   const { sendRequest, data, reqExtra } = useHttp();
-  let videoId = "EXLgZZE072g";
+  // let videoId = "EXLgZZE072g";
+  let videoId = queryString.parse(props.location.search).videoId
 
   const APIKey = "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8";
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
