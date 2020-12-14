@@ -1,6 +1,6 @@
 import React from "react";
 // import { BrowserRouter, Link} from 'react-router-dom';
-import NavigationItem from '../../components/UI/NavigationItem/NavigationItem';
+import NavigationItem from '../UI/NavigationItem/NavigationItem';
 import './Sidebar.scss'
 
 import HomeIcon from "@material-ui/icons/Home";
@@ -13,9 +13,9 @@ import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
 
-const Sidebar = () => {
-  return (
-        <ul className="sidenav">
+const Sidebar = (props) => {
+    let navs = (
+        <ul>
             <NavigationItem exact link="/" icon={HomeIcon} title="Home" />
             <NavigationItem link="/trending" icon={WhatshotIcon} title="Trending" />
             <NavigationItem link="/subscription" icon={SubscriptionsIcon} title="Subscription" />
@@ -27,6 +27,21 @@ const Sidebar = () => {
             <NavigationItem link="/liked-videos" icon={ThumbUpAltOutlinedIcon} title="Liked videos" />
             <NavigationItem link="/liked-videos" icon={ExpandMoreOutlinedIcon} title="Show more" />
         </ul>
+
+    )
+
+    if (!props.isOpen) {
+        navs = (<ul>
+            <NavigationItem isSideNavClosed={!props.isOpen} exact link="/" icon={HomeIcon} title="Home" />
+            <NavigationItem isSideNavClosed={!props.isOpen} link="/trending" icon={WhatshotIcon} title="Trending" />
+            <NavigationItem isSideNavClosed={!props.isOpen} link="/subscription" icon={SubscriptionsIcon} title="Subscription" />
+            <NavigationItem isSideNavClosed={!props.isOpen} link="/library" icon={VideoLibraryIcon} title="Library" />
+        </ul>)
+    }
+  return (
+      <nav className={`sidenav ${props.isOpen ? 'open' : ''}`}>
+        {navs}
+      </nav>
     );
 };
 

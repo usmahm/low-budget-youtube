@@ -39,6 +39,9 @@ const useHttp = () => {
         responseData: response.data,
         extra: reqExtra,
       });
+    })
+    .catch(error => {
+      console.log(error)
     });
   }, []);
 

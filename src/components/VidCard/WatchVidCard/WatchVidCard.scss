@@ -1,6 +1,10 @@
 @import "../../../shared/sass/variables.scss";
 @import "../../../shared/sass/mixins.scss";
 
+li {
+  list-style: none;
+}
+
 .watch-vid-card {
     display: flex;
     margin-bottom: 10px;

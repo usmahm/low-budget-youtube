@@ -1,34 +1,21 @@
-import React, { useEffect, useReducer} from "react";
+import React, { useEffect} from "react";
+
+import { useStore } from '../../store/store';
 import useHttp from '../../hooks/useHttp';
 
 import TrendingVidCard from "../../components/VidCard/TrendingVidCard/TrendingVidCard";
 import "./Trending.scss";
 
-import {
-  parseDuration,
-  parseTime,
-  parseText,
-  parseNumber,
-} from "../../shared/utilities";
 
-const initialState = {
-  videosData: null
-}
-
-const trendingReducer = (curTrenddingState, action) => {
-  switch (action.type) {
-    case 'SET':
-      return { ...curTrenddingState, videosData: action.trendingVideos}
-    default:
-      throw new Error('Should not be reached!')
-  }
-}
 
 const Trending = (props) => {
-  const [trendingState, dispatchTrending] = useReducer(trendingReducer, initialState)
-  const { error, data, isLoading, sendRequest, reqExtra } = useHttp();
+  const { data, sendRequest, reqExtra } = useHttp();
+  const [state, dispatch] = useStore()
 
-  const APIKey = "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8";
+  //States
+  const videosData = state.trendingpage.videosData
+
+  const APIKey = "AIzaSyBQYPwOPrbiFmiafbPOKlxQsieNuMV31yI"; // Key 2
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   const regionCode = "NG";
   CORSAnywhereURL = "";
@@ -40,34 +27,20 @@ const Trending = (props) => {
   }, [sendRequest, CORSAnywhereURL])
 
   useEffect(() => {
-    console.log(data);
-    const videoDataArray = [];
-
     if (data) {
       if (!reqExtra) {
-        data.items.forEach((vidData) => {
-          const parsedData = {
-            viewCount: parseNumber(vidData.statistics.viewCount),
-            channelName: vidData.snippet.channelTitle,
-            description: parseText(vidData.snippet.description, 160),
-            title: parseText(vidData.snippet.title, 100),
-            duration: parseDuration(vidData.contentDetails.duration),
-            datePosted: parseTime(vidData.snippet.publishedAt),
-            embedHTML: vidData.player.embedHtml,
-            image: `https://img.youtube.com/vi/${vidData.id}/mqdefault.jpg`,
-            videoId: vidData.id,
-            channelID: vidData.snippet.channelId,
-          };
-          videoDataArray.push(parsedData);
-        });
-        dispatchTrending({ type: "SET", trendingVideos: videoDataArray });
+        dispatch('SET_TRENDING_PAGE_VIDEOS', data)
       }
     }
-  }, [data, error, reqExtra, isLoading])
+  }, [data, reqExtra, dispatch])
+
+  useEffect(() => {
+    // dispatch('RESET_TRENDING_PAGE_STATE')
+  }, [dispatch])
 
   return (
     <div className="trending">
-      {trendingState.videosData ? trendingState.videosData.map((vidData) => (
+      {videosData ? videosData.map((vidData) => (
         <TrendingVidCard key={vidData.videoId} videosData={vidData} />
       )) : <p>Loading...</p>}
     </div>

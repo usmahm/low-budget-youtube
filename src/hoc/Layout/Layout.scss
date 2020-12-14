@@ -1,0 +1,20 @@
+@import '../../shared/sass/mixins.scss';
+@import '../../shared/sass/variables.scss';
+
+.layout {
+  //   display: grid;
+  //   grid-template-columns: 15rem 1fr;
+  background-color: $color-grey-l1;
+  position: relative;
+  width: 100%;
+  padding-left: 4.5rem;
+  height: 100vh;
+}
+
+.layout.open {
+  padding-left: 15rem;
+}
+
+.layout.close {
+  padding-left: 0;
+}

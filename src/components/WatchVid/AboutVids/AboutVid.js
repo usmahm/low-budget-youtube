@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 const AboutVid = React.memo(props => {
     const videoDetails = props.videoDetails
+    
     return (
         <div className="about-video">
             <h2>{videoDetails.title}</h2>

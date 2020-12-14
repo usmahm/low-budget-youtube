@@ -5,11 +5,19 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
+import configureHomePageStore from './store/homepage-store';
+import configureTrendingPageStore from './store/trendingpage-store';
+import configureWatchVidPageStore from './store/watchVidPage-store';
+
 const app = (
   <BrowserRouter>
     <App />
   </BrowserRouter>
 )
+
+configureHomePageStore();
+configureTrendingPageStore();
+configureWatchVidPageStore();
 
 ReactDOM.render(
   <React.StrictMode>

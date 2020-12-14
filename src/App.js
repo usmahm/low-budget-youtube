@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
-import { Route, useLocation } from 'react-router-dom'
-// import axios from "axios";
+import { Route } from 'react-router-dom'
 
-import Sidebar from "./containers/Sidebar/Sidebar";
-import Header from "./containers/Header/Header";
+import Layout from './hoc/Layout/Layout';
 import Home from "./containers/Home/Home";
 import Trending from "./containers/Trending/Trending";
 import WatchVid from './containers/WatchVid/WatchVid';
@@ -12,9 +10,7 @@ import WatchVid from './containers/WatchVid/WatchVid';
 import "./App.scss";
 
 const App = props => {
-  let location = useLocation();
-  console.log(location)
-
+  
   let routes = (
     <Fragment>
       <Route path="/watch" component={WatchVid} />
@@ -26,11 +22,11 @@ const App = props => {
   )
 
   return (
-    <div className="App">
-      <Header />
-      {location.pathname !== '/watch' ? <Sidebar /> : null}
-      {routes}
-    </div>
+    // <div className="App">
+      <Layout>
+        {routes}
+      </Layout>
+    // {/* </div> */}
   );
 }
 

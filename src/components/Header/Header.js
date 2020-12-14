@@ -1,5 +1,7 @@
 import React from 'react'
 
+import {Link} from 'react-router-dom';
+
 import'./Header.scss'
 import logo from './logo.svg'
 
@@ -11,12 +13,16 @@ import AppsIcon from '@material-ui/icons/Apps';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
 
-const Header = () => {
+const Header = React.memo((props) => {
     return (
         <header className="header">
             <div className="header__left">
-                <MenuIcon className="icon"  />
-                <img src={logo} alt="Logo" />
+                <span onClick={props.sideDrawerToggle}>
+                    <MenuIcon className="icon" />
+                </span>
+                <Link to="/">
+                    <img src={logo} alt="Logo" />
+                </Link>
             </div>
             <form className="header__center">
                 <input placeholder="Search" />
@@ -35,6 +41,6 @@ const Header = () => {
             </div>
         </header>
     )
-}
+})
 
 export default Header

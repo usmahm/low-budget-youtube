@@ -3,15 +3,22 @@
 
 .sidenav {
     padding-top: 4.2rem;   
-    width: 15rem;
     background-color: $color-white;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
-
-    hr {
-        border: 1px solid #f2f2f2;
-        margin: 12px 0;
+    overflow: hidden;
+    width: 4.5rem;
+    
+    ul {
+        hr {
+            border: 1px solid #f2f2f2;
+            margin: 12px 0;
+        }
     }
+}
+
+.sidenav.open {
+    width: 15rem;
 }
