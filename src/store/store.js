@@ -8,9 +8,11 @@ export const useStore = (shouldListen = true) => {
     const setState = useState(globalState)[1];
 
     const dispatch = useCallback((actionIdentifier, payload) => {
+        console.log(globalState)
         const newState = actions[actionIdentifier](globalState, payload)
         globalState = { ...globalState, ...newState};
-
+        console.log(globalState)
+        
         for (const listener of listeners) {
             listener(globalState)
         }

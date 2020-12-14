@@ -1,20 +1,46 @@
-@import '../../shared/sass/mixins.scss';
-@import '../../shared/sass/variables.scss';
+@import "../../shared/sass/mixins.scss";
+@import "../../shared/sass/variables.scss";
 
 .layout {
-  //   display: grid;
-  //   grid-template-columns: 15rem 1fr;
-  background-color: $color-grey-l1;
+  background-color: $color-white;
   position: relative;
   width: 100%;
-  padding-left: 4.5rem;
   height: 100vh;
+  
+  @include respond(tab-port) {
+    background-color: $color-grey-l1;
+    padding-left: 4.5rem;
+  }
+
+  @include respond(tab-land) {
+    padding-left: 15rem;
+  }
 }
 
-.layout.open {
-  padding-left: 15rem;
+.main-nav {
+  width: 100%;
+  height: 2.9rem;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  z-index: 200;
+  border-top: 1px solid $color-grey-l6;
+  
+  @include respond(tab-port) {
+    border: none;
+    height: 100%;
+    bottom: auto;
+    width: auto;
+  }
 }
 
-.layout.close {
-  padding-left: 0;
+.side-nav {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+
+  @include respond(tab-port) {
+  }
 }

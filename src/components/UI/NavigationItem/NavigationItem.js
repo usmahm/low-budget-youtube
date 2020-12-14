@@ -6,7 +6,7 @@ import './NavigationItem.scss';
 const NavigationItem = props => {
     const Icon = props.icon;
     return (
-        <li className={`navigation-item ${props.isSideNavClosed ? 'minimize' : ''}`}>
+        <li className={`navigation-item ${props.shouldHideOnTabPort ? 'hide' : ''} ${props.canReduceWidth ? 'main-nav__link' : ''}`}>
              <NavLink
                  to={props.link}
                  exact={props.exact}

@@ -3,3 +3,47 @@
     justify-content: center;
     align-items: center;
 }
+
+
+// MEDIA QUERY MANAGER
+/*
+0 - 600px:        Phone
+600px - 900px:    Tablet portrait
+900px - 1200px:   Tablet landscape
+[1200 - 1800]px is where our normal styles apply
+1800px + :        Big desktop
+
+
+$breakpoint argument choices:
+-phone
+-tab-port
+-tab-land
+-big-desktop
+
+ORDER: Base + typography > general layout + grid > page layout > components
+*/
+
+// @mixin respond-phone {
+//     @media (max-width: 37.5rem) {
+//         @content;
+//     }   
+// }
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == tab-port {
+        @media (min-width: 37.5em) {@content;}
+    }
+    @if $breakpoint == tab-land {
+        @media (min-width: 56.25em) {@content;}
+    }
+    @if $breakpoint == big-desktop {
+        @media (min-width: 75em) {@content;}
+    }
+    // @if $breakpoint == big-desktop {
+    //     @media (min-width: 112.5em) {@content;}
+    // }
+}
+
+@mixin mobile-only {
+    @media (max-width: 37.5em) {@content;}
+}

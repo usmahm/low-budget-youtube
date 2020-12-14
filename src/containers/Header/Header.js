@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useStore } from '../../store/store'
 import {Link} from 'react-router-dom';
 
 import'./Header.scss'
@@ -14,11 +15,17 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
 
 const Header = React.memo((props) => {
+    const dispatch = useStore()[1]
+
+    const toggleSideDrawer = () => {
+        dispatch('TOGGLE_SIDE_DRAWER')
+    }
+
     return (
         <header className="header">
             <div className="header__left">
-                <span onClick={props.sideDrawerToggle}>
-                    <MenuIcon className="icon" />
+                <span onClick={toggleSideDrawer}>
+                    <MenuIcon className="icon icon__d" />
                 </span>
                 <Link to="/">
                     <img src={logo} alt="Logo" />
@@ -31,9 +38,9 @@ const Header = React.memo((props) => {
                 </div>
             </form>
             <div className="header__right">
-                <VideoCallIcon className="icon" />
-                <AppsIcon className="icon" />
-                <MoreVertIcon className="icon" />
+                <VideoCallIcon className="icon icon__d" />
+                <AppsIcon className="icon icon__d" />
+                <MoreVertIcon className="icon icon__d" />
                 <a href="name" className='login-button'>
                     <Avatar variant="circular" className="icon" />
                     SIGN IN

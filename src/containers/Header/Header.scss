@@ -17,6 +17,13 @@
   .icon {
     color: $color-grey-d1;
     cursor: pointer;
+
+    &__d {
+      display: none;
+      @include respond(tab-port) {
+        display: block;
+      }
+    }
   }
 
   &__left {
@@ -83,7 +90,7 @@
 
       &:active,
       &:focus {
-          outline: none;
+        outline: none;
       }
     }
 
@@ -95,12 +102,12 @@
       cursor: pointer;
 
       &:hover {
-          background-color: $color-grey-l2;
-          box-shadow: $shadow-1;
+        background-color: $color-grey-l2;
+        box-shadow: $shadow-1;
 
-          .icon {
-            opacity: 1;
-          }
+        .icon {
+          opacity: 1;
+        }
       }
 
       @include centerContent;

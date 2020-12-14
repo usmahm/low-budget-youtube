@@ -1,24 +1,37 @@
-@import '../../shared/sass/variables.scss';
-@import '../../shared/sass/mixins.scss';
+@import "../../shared/sass/variables.scss";
+@import "../../shared/sass/mixins.scss";
 
 .sidenav {
-    padding-top: 4.2rem;   
-    background-color: $color-white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    overflow: hidden;
-    width: 4.5rem;
-    
-    ul {
-        hr {
-            border: 1px solid #f2f2f2;
-            margin: 12px 0;
-        }
-    }
-}
+  background-color: $color-white;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 
-.sidenav.open {
+  @include respond(tab-port) {
+    padding-top: 4.2rem;
+    width: 4.5rem;
+  }
+
+  @include respond(tab-land) {
     width: 15rem;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+
+    @include respond(tab-port) {
+      display: block;
+    }
+
+    hr {
+      display: none;
+
+      @include respond(tab-land) {
+        border: 1px solid #f2f2f2;
+        margin: 12px 0;
+      }
+    }
+  }
 }

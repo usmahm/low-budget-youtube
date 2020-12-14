@@ -1,5 +1,6 @@
 import React from "react";
-// import { BrowserRouter, Link} from 'react-router-dom';
+
+import { useStore } from '../../store/store';
 import NavigationItem from '../UI/NavigationItem/NavigationItem';
 import './Sidebar.scss'
 
@@ -14,32 +15,25 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ExpandMoreOutlinedIcon from "@material-ui/icons/ExpandMoreOutlined";
 
 const Sidebar = (props) => {
+    const state = useStore()[0];
+
     let navs = (
         <ul>
-            <NavigationItem exact link="/" icon={HomeIcon} title="Home" />
-            <NavigationItem link="/trending" icon={WhatshotIcon} title="Trending" />
-            <NavigationItem link="/subscription" icon={SubscriptionsIcon} title="Subscription" />
+            <NavigationItem exact link="/" canReduceWidth={props.mainNav} icon={HomeIcon} title="Home" />
+            <NavigationItem link="/trending" canReduceWidth={props.mainNav} icon={WhatshotIcon} title="Trending" />
+            <NavigationItem link="/subscription" canReduceWidth={props.mainNav} icon={SubscriptionsIcon} title="Subscription" />
             <hr />
-            <NavigationItem link="/library" icon={VideoLibraryIcon} title="Library" />
-            <NavigationItem link="/history" icon={HistoryIcon} title="History" />
-            <NavigationItem link="/your-videos" icon={OndemandVideoIcon} title="Your videos" />
-            <NavigationItem link="/watch-later" icon={WatchLaterIcon} title="Watch Later" />
-            <NavigationItem link="/liked-videos" icon={ThumbUpAltOutlinedIcon} title="Liked videos" />
-            <NavigationItem link="/liked-videos" icon={ExpandMoreOutlinedIcon} title="Show more" />
+            <NavigationItem link="/library" canReduceWidth={props.mainNav} icon={VideoLibraryIcon} title="Library" />
+            <NavigationItem link="/history" shouldHideOnTabPort={props.mainNav} icon={HistoryIcon} title="History" />
+            <NavigationItem link="/your-videos" shouldHideOnTabPort={props.mainNav} icon={OndemandVideoIcon} title="Your videos" />
+            <NavigationItem link="/watch-later" shouldHideOnTabPort={props.mainNav} icon={WatchLaterIcon} title="Watch Later" />
+            <NavigationItem link="/liked-videos" shouldHideOnTabPort={props.mainNav} icon={ThumbUpAltOutlinedIcon} title="Liked videos" />
+            <NavigationItem link="/liked-videos" shouldHideOnTabPort={props.mainNav} icon={ExpandMoreOutlinedIcon} title="Show more" />
         </ul>
-
     )
 
-    if (!props.isOpen) {
-        navs = (<ul>
-            <NavigationItem isSideNavClosed={!props.isOpen} exact link="/" icon={HomeIcon} title="Home" />
-            <NavigationItem isSideNavClosed={!props.isOpen} link="/trending" icon={WhatshotIcon} title="Trending" />
-            <NavigationItem isSideNavClosed={!props.isOpen} link="/subscription" icon={SubscriptionsIcon} title="Subscription" />
-            <NavigationItem isSideNavClosed={!props.isOpen} link="/library" icon={VideoLibraryIcon} title="Library" />
-        </ul>)
-    }
   return (
-      <nav className={`sidenav ${props.isOpen ? 'open' : ''}`}>
+      <nav className={`sidenav ${state.globalState.isShowSideDrawer ? 'open' : ''} ${props.mainNav ? 'main-na' : ''}`}>
         {navs}
       </nav>
     );

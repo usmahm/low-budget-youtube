@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import configureHomePageStore from './store/homepage-store';
 import configureTrendingPageStore from './store/trendingpage-store';
 import configureWatchVidPageStore from './store/watchVidPage-store';
+import configureGlobalStore from './store/global-store';
 
 const app = (
   <BrowserRouter>
@@ -18,6 +19,7 @@ const app = (
 configureHomePageStore();
 configureTrendingPageStore();
 configureWatchVidPageStore();
+configureGlobalStore();
 
 ReactDOM.render(
   <React.StrictMode>

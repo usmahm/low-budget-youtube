@@ -2,58 +2,12 @@
 @import "../../../shared/sass/mixins.scss";
 
 .navigation-item {
-  width: 100%;
-  height: 2.5rem;
+  // height: auto;
 
-  .navigation-link {
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    color: $color-grey-d1;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-
-    p {
-      font-size: 0.9rem;
-    }
-
-    .navigation__icon {
-      margin-right: 22px;
-      // color: $color-grey-d1;
-      height: 1.3rem !important;
-      width: 1.3rem !important;
-    }
+  @include respond(tab-port) {
+    height: 4.4rem;
   }
 
-  &:hover {
-    background-color: $color-grey-l3;
-  }
-
-  .active {
-    background-color: $color-grey-l4;
-
-    .navigation-link {
-      color: $color-black;
-    }
-
-    p {
-      font-weight: 500;
-    }
-
-    &:hover {
-      background-color: $color-grey-l5;
-    }
-
-    svg {
-      color: $color-red;
-    }
-  }
-}
-
-.navigation-item.minimize {
-  height: 4.4rem;
-  
   .navigation-link {
     padding: 0;
     color: $color-grey-d1;
@@ -65,15 +19,42 @@
     justify-content: center;
     align-items: center;
 
+    @include respond(tab-land) {
+      padding: 0 24px;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
     p {
-      font-size: 0.6rem;
+      font-size: 0.5rem;
+
+      @include respond(tab-port) {
+        font-size: 0.6rem;
+      }
+
+      @include respond(tab-land) {
+        font-size: 0.9rem;
+
+      }
     }
 
     .navigation__icon {
       margin: 0;
-      margin-bottom: 4px;
-      height: 1.3rem !important;
-      width: 1.3rem !important;
+      width: 1rem !important;
+      height: 1rem !important;
+      
+      @include respond(tab-port) {
+        margin-bottom: 4px;
+        height: 1.3rem !important;
+        width: 1.3rem !important;
+      }
+
+      @include respond(tab-land) {
+        margin-right: 22px;
+        // color: $color-grey-d1;
+        height: 1.3rem !important;
+        width: 1.3rem !important;
+      }
     }
   }
 
@@ -84,5 +65,115 @@
   .active {
     background-color: transparent;
     color: $color-red;
+    
+    p {
+      font-weight: 500;
+    }
+    
+    @include respond(tab-land) {
+      background-color: $color-grey-l4;
+      .navigation-link {
+        color: $color-black;
+      }
+  
+  
+      &:hover {
+        background-color: $color-grey-l5;
+      }
+  
+      svg {
+        color: $color-red;
+      }
+    }
+  }
+
+  @include respond(tab-land) {
+    // width: 100%;
+    height: 2.5rem;
+
+    .navigation-link {
+      // padding: 0 24px;
+      // flex-direction: row;
+      // justify-content: flex-start;
+
+      p {
+        // font-size: 0.9rem;
+      }
+
+      .navigation__icon {
+        // margin-right: 22px;
+        // // color: $color-grey-d1;
+        // height: 1.3rem !important;
+        // width: 1.3rem !important;
+      }
+    }
+
+    &:hover {
+      // background-color: $color-grey-l3;
+    }
+
+    // .active {
+    //   background-color: $color-grey-l4;
+
+    //   .navigation-link {
+    //     color: $color-black;
+    //   }
+
+    //   p {
+    //     font-weight: 500;
+    //   }
+
+    //   &:hover {
+    //     background-color: $color-grey-l5;
+    //   }
+
+    //   svg {
+    //     color: $color-red;
+    //   }
+    // }
   }
 }
+
+.navigation-item.hide {
+  display: none;
+
+  @include respond(tab-land) {
+      display: block;
+  }
+}
+
+// .navigation-item.minimize {
+//   height: 4.4rem;
+
+//   .navigation-link {
+//     padding: 0;
+//     color: $color-grey-d1;
+//     cursor: pointer;
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+
+//     p {
+//       font-size: 0.6rem;
+//     }
+
+//     .navigation__icon {
+//       margin: 0;
+//       margin-bottom: 4px;
+//       height: 1.3rem !important;
+//       width: 1.3rem !important;
+//     }
+//   }
+
+//   &:hover {
+//     background-color: $color-grey-l3;
+//   }
+
+//   .active {
+//     background-color: transparent;
+//     color: $color-red;
+//   }
+// }
