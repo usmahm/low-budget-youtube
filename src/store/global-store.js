@@ -2,19 +2,29 @@ import { initStore } from "./store";
 
 const configureStore = () => {
   const actions = {
-    TOGGLE_SIDE_DRAWER: (curState, isTrue = !curState.globalState.isShowSideDrawer) => {
+    TOGGLE_SIDE_NAV: (curState, isTrue = !curState.globalState.isShowSideNav) => {
       let updatedglobalState = { ...curState.globalState };
-      console.log(isTrue)
+      console.log(updatedglobalState)
       updatedglobalState = {
         ...updatedglobalState,
-        isShowSideDrawer: isTrue
+        isShowSideNav: isTrue
+      };
+      return { globalState: updatedglobalState };
+    },
+    TOGGLE_MAIN_NAV: (curState, isTrue = !curState.globalState.isMainNavSmall) => {
+      let updatedglobalState = { ...curState.globalState };
+      console.log(updatedglobalState)
+      updatedglobalState = {
+        ...updatedglobalState,
+        isMainNavSmall: isTrue
       };
       return { globalState: updatedglobalState };
     },
   };
 
   const initialState = {
-    isShowSideDrawer: true,
+    isShowSideNav: false,
+    isMainNavSmall: false
   };
 
   initStore(actions, { globalState: initialState });

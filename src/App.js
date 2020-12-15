@@ -6,7 +6,6 @@ import Home from "./containers/Home/Home";
 import Trending from "./containers/Trending/Trending";
 import WatchVid from './containers/WatchVid/WatchVid';
 
-// import data from "./data";
 import "./App.scss";
 
 const App = props => {
@@ -22,11 +21,9 @@ const App = props => {
   )
 
   return (
-    // <div className="App">
       <Layout>
         {routes}
       </Layout>
-    // {/* </div> */}
   );
 }
 

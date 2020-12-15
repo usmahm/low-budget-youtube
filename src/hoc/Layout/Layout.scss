@@ -6,6 +6,10 @@
   position: relative;
   width: 100%;
   height: 100vh;
+
+  &.s-p {
+    padding-left: 4.5rem;
+  }
   
   @include respond(tab-port) {
     background-color: $color-grey-l1;
@@ -15,6 +19,10 @@
   @include respond(tab-land) {
     padding-left: 15rem;
   }
+
+  &.no-padding {
+    padding-left: 0 !important;
+  }
 }
 
 .main-nav {
@@ -23,8 +31,8 @@
   bottom: 0;
   position: fixed;
   left: 0;
-  z-index: 200;
   border-top: 1px solid $color-grey-l6;
+  z-index: 100;
   
   @include respond(tab-port) {
     border: none;
@@ -34,13 +42,50 @@
   }
 }
 
+.main-nav.s {
+    border: none;
+    height: 100%;
+    bottom: auto;
+    width: auto;
+}
+
 .side-nav {
   position: fixed;
   height: 100%;
   top: 0;
   left: 0;
-  display: none;
+  display: block;
+  z-index: 1100;
+  
+  transform: translateX(-100%);
+  transition: .2s;
 
-  @include respond(tab-port) {
+  @include respond(tab-land) {
+    display: none;
+  }
+  
+  &.s-w {
+    @include respond(tab-land) {
+      display: block;
+    }
+  }
+
+  &.show {
+    transform: translateX(0);
+  }
+}
+
+.backdrop {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1090;
+  transition: 5s background-color;
+  background-color: transparent;
+  
+  &.show {
+    background-color: hsla(0, 0%, 0%, 0.5);
+    display: block;
   }
 }

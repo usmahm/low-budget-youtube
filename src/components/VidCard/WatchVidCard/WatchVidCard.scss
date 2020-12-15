@@ -51,30 +51,50 @@ li {
     padding-left: 7px;
 
     h3 {
-      font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 400;
       color: $color-black;
       margin-bottom: 4px;
+      
+      @include respond(tab-port) {     
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
     }
 
     p {
       display: flex;
       align-items: center;
       color: $color-grey-d1;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
+
+      @include respond(tab-port) {
+       font-size: 0.75rem;       
+      }
 
       &.channel__name {
           margin: 8px 0 4px 0;
       }
 
-      &:last-of-type {        
+      &:last-of-type {   
+        .date-posted {
+          display: none;
+
+          @include respond(tab-port) {
+           display: inline-block;   
+          }
+        }     
         .s-circle {
           width: 3px;
           height: 3px;
           margin: 0 5px;
           background-color: $color-grey-d1;
-          display: inline-block;
+          display: none;
           border-radius: 50%;
+
+          @include respond(tab-port) {
+           display: inline-block;   
+          }
         }
       }
 

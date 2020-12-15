@@ -22,8 +22,10 @@ const HomeVidCard = props => {
                     </div>
                     <div className="details__text">
                         <h3>{vidData.title}</h3>
-                        <p>{vidData.channelName}</p>
-                        <p>{vidData.viewCount} <span className="s-circle"></span> {vidData.datePosted}</p>
+                        <span>
+                            <p>{vidData.channelName}</p> <span className="s-circle m"></span>
+                            <p>{vidData.viewCount} <span className="s-circle"></span> {vidData.datePosted}</p>
+                        </span>
                     </div>
                 </div>
         </Link>

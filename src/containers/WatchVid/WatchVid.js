@@ -78,18 +78,26 @@ const WatchVid = React.memo((props) => {
     }
   }, [data, reqExtra, dispatch, CORSAnywhereURL, sendRequest, videoId]);
 
+  useEffect(() => {
+    return () => {
+      dispatch('RESET_WDIV_STATE')
+    }
+  }, [dispatch])
+
   return (
     <div className="watchvid-page">
       <div className="video">
         <div className="video__container">
-          <div>
-            <iframe
-              title="name"
-              src={`//www.youtube.com/embed/${videoId}`} // ADD Later ?autoplay=1&mute=1
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+          <div className="video__container-i">
+            <div>
+              <iframe
+                title="name"
+                src={`//www.youtube.com/embed/${videoId}`} // ADD Later ?autoplay=1&mute=1
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
         </div>
         <div className="video__details">

@@ -14,7 +14,7 @@ const AboutVid = React.memo(props => {
         <div className="about-video">
             <h2>{videoDetails.title}</h2>
             <div className="top">
-                <p>{videoDetails.viewCount} views <span className="s-circle"></span> {videoDetails.datePosted}</p>
+                <p>{videoDetails.viewCount} views <span className="s-circle"></span><span className="date-posted">{videoDetails.datePosted}</span></p>
                 <div className="actions">
                     <span className="upvotes">
                         <ThumbUpIcon className="icon" />

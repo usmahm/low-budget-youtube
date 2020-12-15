@@ -10,22 +10,29 @@ import './Layout.scss'
 
 const Layout = (props) => {
   let isPathnameWatch = useLocation().pathname === "/watch";
-  const  dispatch = useStore()[0];
+  const  [state, dispatch] = useStore();
 
-  useEffect(() => {
-    if (isPathnameWatch) {
-        dispatch('TOGGLE_SIDE_DRAWER', false)
-    }
-  }, [isPathnameWatch, dispatch])
+  const closeBackdrop = () => {
+      dispatch('TOGGLE_SIDE_NAV')
+  }
+
+  let mainNav = (
+    <div className={`main-nav ${state.globalState.isMainNavSmall ? 's' : ''}`}>
+        <Sidebar mainNav class="main-nav__list" />
+    </div>
+  )
+
+  if (isPathnameWatch) {
+    mainNav = null
+  }
 
   return (
-    <div className={`layout`}>
+    <div className={`layout ${state.globalState.isMainNavSmall && !isPathnameWatch ? 's-p' : ''} ${isPathnameWatch ? 'no-padding' : ""}`}>
+      <div className={`backdrop  ${state.globalState.isShowSideNav ? 'show' : ''}`} onClick={closeBackdrop}></div>
       <Header />
-      <div className="main-nav">
-        <Sidebar mainNav />
-      </div>
-      <div className="side-nav">
-        <Sidebar />
+      {mainNav}
+      <div className={`side-nav ${state.globalState.isShowSideNav ? 'show' : ''} ${isPathnameWatch ? 's-w' : ''}`}>
+        <Sidebar sideNav class="side-nav__list" />
       </div>
       <main>{props.children}</main>
     </div>

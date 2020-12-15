@@ -3,9 +3,9 @@
 
 .home {
   padding-top: 4.8rem;
-  // padding-left: 16.25rem;
   width: 100%;
   padding-bottom: 3rem;
+  position: relative;
 
   @include respond(tab-port) {
     display: flex;

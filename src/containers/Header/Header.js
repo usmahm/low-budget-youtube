@@ -2,9 +2,10 @@ import React from 'react'
 
 import { useStore } from '../../store/store'
 import {Link} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import'./Header.scss'
-import logo from './logo.svg'
+import logo from '../../assets/icons/logo.svg'
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
@@ -16,17 +17,27 @@ import Avatar from '@material-ui/core/Avatar';
 
 const Header = React.memo((props) => {
     const dispatch = useStore()[1]
+    let isPathnameWatch = useLocation().pathname === "/watch";
 
-    const toggleSideDrawer = () => {
-        dispatch('TOGGLE_SIDE_DRAWER')
+    const toggleSideNav = () => {
+        dispatch('TOGGLE_SIDE_NAV')
+    }
+
+    const toggleMainNav = () => {
+        dispatch('TOGGLE_MAIN_NAV')
     }
 
     return (
         <header className="header">
             <div className="header__left">
-                <span onClick={toggleSideDrawer}>
-                    <MenuIcon className="icon icon__d" />
-                </span>
+                <div>
+                    <span onClick={toggleSideNav}>
+                        <MenuIcon className="icon icon__d" />
+                    </span>
+                    <span onClick={toggleMainNav}>
+                        <MenuIcon className={`icon icon__d ${isPathnameWatch ? 'hide' : ''}`} />
+                    </span>
+                </div>
                 <Link to="/">
                     <img src={logo} alt="Logo" />
                 </Link>

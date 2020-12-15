@@ -13,6 +13,7 @@
   align-items: center;
   padding: 0 20px;
   z-index: 1000;
+  box-shadow: 0 -1px 4px 1px  rgba(0, 0, 0, 0.4);
 
   .icon {
     color: $color-grey-d1;
@@ -29,6 +30,26 @@
   &__left {
     display: flex;
     align-items: center;
+
+    div {
+      position: relative;
+
+      span:last-of-type {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        display: none;
+
+        @include respond(tab-land) {
+          display: block;
+        }
+
+        .hide {
+          display: none !important;
+        }
+      }
+    }
 
     img {
       height: 1.2rem;

@@ -17,7 +17,7 @@ const WatchVidCard = props => {
                 <div className="details">
                     <h3>{videoDetails.title}</h3>
                     <p className="channel__name">{videoDetails.channelName}</p>
-                    <p>{videoDetails.viewCount} <span className="s-circle"></span> {videoDetails.datePosted}</p>
+                    <p>{videoDetails.viewCount} views <span className="s-circle"></span> <span className="date-posted">{videoDetails.datePosted}</span></p>
                 </div>
             </Link>
         </li>

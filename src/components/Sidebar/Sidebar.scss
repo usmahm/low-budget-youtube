@@ -1,7 +1,7 @@
 @import "../../shared/sass/variables.scss";
 @import "../../shared/sass/mixins.scss";
 
-.sidenav {
+.main-nav__list {
   background-color: $color-white;
   width: 100%;
   height: 100%;
@@ -32,6 +32,45 @@
         border: 1px solid #f2f2f2;
         margin: 12px 0;
       }
+    }
+  }
+}
+
+.main-nav__list.s {
+  width: 4.5rem;
+}
+
+
+.side-nav__list {
+  background-color: $color-white;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  width: 15rem;
+
+  .header__left {
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    padding-left: 24px;
+
+    img {
+      height: 1.2rem;
+      object-fit: contain;
+    }
+
+    .icon {
+      margin-right: 20px;
+    }
+  }
+
+  ul {
+    height: 100%;
+    display: block;
+
+    hr {      
+      border: 1px solid #f2f2f2;
+      margin: 12px 0;
     }
   }
 }

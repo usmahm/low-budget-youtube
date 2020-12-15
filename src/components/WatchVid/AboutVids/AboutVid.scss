@@ -2,7 +2,11 @@
 @import "../../../shared/sass/mixins.scss";
 
 .about-video {
-  margin-top: 20px;
+  margin-top: 10px;
+
+  @include respond(tab-port) {
+    margin-top: 20px;
+  }
 
   h2 {
     font-size: 1.1rem;
@@ -10,26 +14,47 @@
   }
 
   div.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: block;
     font-size: 1rem;
-    margin-top: 10px;
+    margin-top: 5px;
     border-bottom: 1px solid $color-grey-l5;
+
+    @include respond(tab-port) {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 10px;
+    }
 
     p {
       color: $color-grey-d1;
       display: flex;
       align-items: center;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
+
+      @include respond(tab-port) {
+        font-size: 0.9rem;
+      }
+
+      .date-posted {
+        display: none;
+
+        @include respond(tab-port) {
+          display: inline-block;
+        }
+      }
 
       .s-circle {
         width: 3px;
         height: 3px;
         margin: 0 5px;
         background-color: $color-grey-d1;
-        display: inline-block;
         border-radius: 50%;
+        display: none;
+
+        @include respond(tab-port) {
+          display: inline-block;
+        }
       }
     }
 
@@ -38,37 +63,65 @@
       color: $color-grey-d1;
       display: flex;
       align-items: center;
+      justify-content: space-around;
+      margin-top: 10px;
+
+      @include respond(tab-port) {
+        justify-content: space-between;
+      }
 
       span {
+        flex-direction: column;
+        font-size: 0.75rem;
         padding-bottom: 10px;
         display: flex;
         align-items: center;
-        font-size: 0.9rem;
         padding-right: 18px;
+
+        @include respond(tab-port) {
+          font-size: 0.9rem;
+          flex-direction: row;
+        }
 
         &.upvotes,
         &.downvotes {
-          border-bottom: 2px solid $color-grey-d1;
+          @include respond(tab-port) {
+            border-bottom: 2px solid $color-grey-d1;
+          }
         }
 
         .icon {
-          margin-right: 5px;
-          width: 1.4rem;
+          margin: 0;
+          margin-bottom: 2px;
+          width: 1.3rem;
+
+          @include respond(tab-port) {
+            margin-right: 5px;
+            width: 1.4rem;
+          }
         }
 
         &.download {
-            color: $color-blue;
-            padding-right: 0;
+          font-size: 0.9rem;
+          flex-direction: row;
+          color: $color-blue;
+          padding-right: 0;
+
+          .icon {
+            margin: 0;
+            margin-right: 5px;
+            width: 1.4rem;
+          }
         }
       }
     }
   }
 
   div.buttom {
-      border-bottom: 1px solid $color-grey-l5;
-      
-      .channel-details {
-        padding: 20px 0;
+    border-bottom: 1px solid $color-grey-l5;
+
+    .channel-details {
+      padding: 20px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -78,21 +131,34 @@
         align-items: center;
 
         .icon {
+          width: 2rem;
+          height: 2rem;
           margin-right: 12.8px;
-          height: 3rem;
-          width: 3rem;
+
+          @include respond(tab-port) {
+            height: 3rem;
+            width: 3rem;
+          }
         }
 
         span {
           p {
             color: $color-grey-d1;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+
+            @include respond(tab-port) {
+              font-size: 0.8rem;
+            }
           }
 
           .channel-name {
             color: $color-black;
-            font-size: 0.91rem;
-            font-weight: 500;
+            font-size: 0.9rem;
+            font-weight: 400;
+
+            @include respond(tab-port) {
+              font-weight: 400;
+            }
           }
         }
       }
@@ -108,17 +174,16 @@
         border-radius: 2px;
       }
     }
-   
+
     .video-description {
       padding-left: 3.8rem;
       padding-right: 6.6rem;
 
       p {
-          font-size: 0.9rem;
-          padding-bottom: 20px;
-          line-height: 1.5;
+        font-size: 0.9rem;
+        padding-bottom: 20px;
+        line-height: 1.5;
       }
     }
-
   }
 }

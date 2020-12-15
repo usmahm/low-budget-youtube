@@ -2,37 +2,82 @@
 @import '../../shared/sass/mixins.scss';
 
 .watchvid-page {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    column-gap: 20px;
-    padding: 0 2.2rem;
-    padding-top: 4.8rem;
-    width: 100%;
-    height: 100%;
+    padding: 0;
+    padding-top: 3.5rem;
+    position: relative;
+
+    @include respond(tab-port) {
+        padding: 0 1.8rem;
+        padding-top: 4.8rem;
+        width: 100%;
+        height: 100%;
+    }
+    
+    @include respond(tab-big) {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        column-gap: 20px;
+        padding: 0 2.2rem;
+    }
 
     .video {
         width: 100%;
+        padding-top: 56%;
+
+        @include respond(tab-port) {
+            padding-top: 0;
+        }
         
         &__container {
-            padding-top: 56%;
-            position: relative;
+            max-width: 47rem;
+            margin: 0 auto;
 
-            div {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
+            position: fixed;
+            width: 100%;
+            top: 3.5rem;
+            z-index: 1000;
 
-                iframe {
-                    width: 100% !important;
-                    height: 100% !important;
+            @include respond(tab-port) {
+                position: static;
+                width: auto;
+            }
+
+            &-i {
+                padding-top: 56%;
+                position: relative;
+    
+                div {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+    
+                    iframe {
+                        width: 100% !important;
+                        height: 100% !important;
+                    }
                 }
+            }
+        }
+
+        .video__details {
+            padding: 0 10px;
+
+            @include respond(tab-port) {
+                padding: 0;
             }
         }
     }
 
     .related-videos {
         height: 100%;
+        margin-top: 25px;
+        padding: 0 10px;
+
+        @include respond(tab-big) {
+            margin: 0;
+            padding: 0;
+          }
     }
 }

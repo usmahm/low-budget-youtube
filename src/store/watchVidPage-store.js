@@ -112,6 +112,17 @@ const configureStore = () => {
           relatedVideos: videoDataArray,
         };
         return { watchVidPage: updatedWatchVidPageState };
+    },
+    RESET_WDIV_STATE: (curState) => {
+      return {
+        watchVidPage: {
+          relatedVideos: null,
+          videoDetails: null,
+          isVidDetailsFetched: false,
+          isOtherVidDetailsFetched: false,
+          relatedVidsId: null,
+        }
+      }
     }
   };
 
