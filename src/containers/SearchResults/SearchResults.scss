@@ -1,0 +1,13 @@
+@import "../../shared/sass/variables.scss";
+@import "../../shared/sass/mixins.scss";
+
+.search-page {
+    padding: 0 1.25rem; 
+    padding-top: 4.8rem;
+    position: relative;
+
+    @include respond(tab-land) {
+        // width: 100%;
+        margin: 0;
+    }
+}

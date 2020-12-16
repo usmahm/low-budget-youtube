@@ -18,6 +18,7 @@
         grid-template-columns: 2fr 1fr;
         column-gap: 20px;
         padding: 0 2.2rem;
+        padding-top: 4.8rem;
     }
 
     .video {
@@ -40,6 +41,7 @@
             @include respond(tab-port) {
                 position: static;
                 width: auto;
+                max-width: none;
             }
 
             &-i {

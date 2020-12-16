@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+import useVideoHttp from '../../hooks/useVideoHttp';
 import { useStore } from '../../store/store'
-import {Link} from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import {Link, useLocation, withRouter} from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 import'./Header.scss'
 import logo from '../../assets/icons/logo.svg'
@@ -16,6 +17,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
 
 const Header = React.memo((props) => {
+    const [searchInput, setSearchInput] = useState('')
     const dispatch = useStore()[1]
     let isPathnameWatch = useLocation().pathname === "/watch";
 
@@ -25,6 +27,11 @@ const Header = React.memo((props) => {
 
     const toggleMainNav = () => {
         dispatch('TOGGLE_MAIN_NAV')
+    }
+
+    const submitSearchHandler = (event) => {
+        event.preventDefault()
+        props.history.push(`/search?search-query=${searchInput}`)
     }
 
     return (
@@ -42,8 +49,8 @@ const Header = React.memo((props) => {
                     <img src={logo} alt="Logo" />
                 </Link>
             </div>
-            <form className="header__center">
-                <input placeholder="Search" />
+            <form className="header__center" onSubmit={submitSearchHandler}>
+                <input value={searchInput} onChange={(event) => {setSearchInput(event.target.value)}} placeholder="Search" />
                 <div type="submit">
                     <SearchRoundedIcon className="icon" />
                 </div>
@@ -61,4 +68,4 @@ const Header = React.memo((props) => {
     )
 })
 
-export default Header
+export default withRouter(Header)

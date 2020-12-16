@@ -20,7 +20,6 @@ const WatchVid = React.memo((props) => {
   const channelID = state.watchVidPage.videoDetails ? state.watchVidPage.videoDetails.channelID : null;
 
   let videoId = new URLSearchParams(props.location.search).get('videoId');
-
   const APIKey = "AIzaSyAqeL-FB6D4o0Yd7MDEbrMSHxQR3aA5ZsA"; // Key 3
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   CORSAnywhereURL = "";

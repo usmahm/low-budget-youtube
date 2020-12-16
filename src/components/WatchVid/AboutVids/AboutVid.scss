@@ -176,8 +176,12 @@
     }
 
     .video-description {
-      padding-left: 3.8rem;
       padding-right: 6.6rem;
+      padding-left: 0;
+      
+      @include respond(tab-port) {
+        padding-left: 3.8rem;     
+      }
 
       p {
         font-size: 0.9rem;

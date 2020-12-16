@@ -70,6 +70,7 @@ const useVideoHttp = () => {
           const videoDataArray = [];
           const channelIDsArr = [];
 
+          console.log(response)
           response.data.items.forEach((vidData) => {
             const parsedData = {
               viewCount: parseNumber(vidData.statistics.viewCount),

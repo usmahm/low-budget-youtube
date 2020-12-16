@@ -95,7 +95,6 @@ const configureStore = () => {
       return { watchVidPage: updatedWatchVidPageState };
     },
     SET_WVID_RELATED_VIDS_VIEW_COUNT: (curState, APIResponse) => {
-      console.log(APIResponse)
         const videoDataArray = [ ...curState.watchVidPage.relatedVideos ];
         Array.from(APIResponse.items).forEach((vidData) => {
           // const viewCount = vidData.statistics.viewCount;
