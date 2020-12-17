@@ -90,55 +90,100 @@
         color: $color-white;
       }
     }
-
+    
     .icon {
       margin-right: 20px;
+
+      &.search-toggle {
+        @include respond(tab-port) {
+          display: none;
+        }
+      }
     }
   }
 
   &__center {
-    width: 70%;
-    max-width: 40rem;
-    display: flex;
-    align-items: center;
-    height: 2rem;
-    border: 1px solid $color-l-grey;
-    padding-left: 10px;
-    margin: 0 40px;
-    box-shadow: inset $shadow-1;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    margin: 0;
+    z-index: 100;
+    background-color: white;
+    height: 100%;
+    display: none;
 
-    input {
-      height: 95%;
-      width: calc(100% - 65px);
-      border: none;
-      padding-right: 10px;
+    &.show {
+      @include centerContent;
+    }
+    
+    @include respond(tab-port) {
+      @include centerContent;
+      position: static;
+      width: 70%;
+      max-width: 40rem;
+      margin: 0 20px;
+    }
+    
+    div.back-icon {
+      width: 60px;
+      height: 2rem;
+      cursor: pointer;
+      color: $color-grey-d1;
+      @include centerContent;
 
-      &:active,
-      &:focus {
-        outline: none;
+      @include respond(tab-port) {
+        display: none;
       }
     }
 
-    div {
-      width: 65px;
-      height: 100%;
-      border-left: 1px solid $color-l-grey;
-      background-color: $color-grey-l1;
-      cursor: pointer;
 
-      &:hover {
-        background-color: $color-grey-l2;
-        box-shadow: $shadow-1;
+    div.input_wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      height: 2rem;
+      border: 1px solid $color-l-grey;
+      padding-left: 10px;
+      box-shadow: inset $shadow-1;
+      margin-right: 12px;
 
-        .icon {
-          opacity: 1;
+      @include respond(tab-port) {
+        margin-right: 0;
+      }
+  
+      input {
+        height: 95%;
+        width: calc(100% - 65px);
+        border: none;
+        padding-right: 10px;
+  
+        &:active,
+        &:focus {
+          outline: none;
         }
       }
-
-      @include centerContent;
-      .icon {
-        height: 20px;
-        opacity: 0.7;
+  
+      div {
+        width: 65px;
+        height: 100%;
+        border-left: 1px solid $color-l-grey;
+        background-color: $color-grey-l1;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: $color-grey-l2;
+          box-shadow: $shadow-1;
+  
+          .icon {
+            opacity: 1;
+          }
+        }
+  
+        @include centerContent;
+        .icon {
+          height: 20px;
+          opacity: 0.7;
+        }
       }
     }
   }

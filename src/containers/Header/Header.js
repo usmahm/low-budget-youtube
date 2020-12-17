@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 
-// import useVideoHttp from '../../hooks/useVideoHttp';
 import { useStore } from '../../store/store'
 import {Link, useLocation, withRouter} from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
 
 import'./Header.scss'
 import logo from '../../assets/icons/logo.svg'
@@ -12,12 +10,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import AppsIcon from '@material-ui/icons/Apps';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from '@material-ui/core/Avatar';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const Header = React.memo((props) => {
     const [searchInput, setSearchInput] = useState('')
+    const [showInput, setShowInput] = useState(false)
     const dispatch = useStore()[1]
     let isPathnameWatch = useLocation().pathname === "/watch";
 
@@ -32,6 +31,10 @@ const Header = React.memo((props) => {
     const submitSearchHandler = (event) => {
         event.preventDefault()
         props.history.push(`/search?search-query=${searchInput}`)
+    }
+
+    const toggleSearchInput = () => {
+        setShowInput(curState => !curState)
     }
 
     return (
@@ -49,13 +52,21 @@ const Header = React.memo((props) => {
                     <img src={logo} alt="Logo" />
                 </Link>
             </div>
-            <form className="header__center" onSubmit={submitSearchHandler}>
-                <input value={searchInput} onChange={(event) => {setSearchInput(event.target.value)}} placeholder="Search" />
-                <div type="submit">
-                    <SearchRoundedIcon className="icon" />
+            <form className={`header__center ${showInput ? 'show' : ''}`} onSubmit={submitSearchHandler}>
+                <div className="back-icon" onClick={toggleSearchInput}>
+                    <ArrowBackIcon />
+                </div>
+                <div className="input_wrapper">
+                    <input value={searchInput} onChange={(event) => {setSearchInput(event.target.value)}} placeholder="Search" />
+                    <div type="submit" onClick={submitSearchHandler}>
+                        <SearchRoundedIcon className="icon" />
+                    </div>
                 </div>
             </form>
             <div className="header__right">
+                <span onClick={toggleSearchInput}>
+                    <SearchRoundedIcon className="search-toggle icon" />
+                </span>
                 <VideoCallIcon className="icon icon__d" />
                 <AppsIcon className="icon icon__d" />
                 <MoreVertIcon className="icon icon__d" />
