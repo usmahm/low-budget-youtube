@@ -2,10 +2,7 @@ import { initStore } from "./store";
 import moment from "moment";
 
 import {
-  parseDuration,
-  parseTime,
-  parseText,
-  parseNumber,
+  parseNumber
 } from "../shared/utilities";
 
 const configureStore = () => {
@@ -36,26 +33,14 @@ const configureStore = () => {
       };
       return { watchVidPage: updatedWatchVidPageState };
     },
-    SET_SUBSCRIBER_COUNT: (curState, APIResponse) => {
+    SET_WVID_CHANNEL_DETAILS: (curState, APIResponse) => {
+      console.log(APIResponse)
       let updatedWatchVidPageState = { ...curState.watchVidPage };
       updatedWatchVidPageState = {
         ...updatedWatchVidPageState,
         videoDetails: {
           ...updatedWatchVidPageState.videoDetails,
-          subscriberCount: parseNumber(
-            APIResponse.items[0].statistics.subscriberCount
-          ),
-        },
-      };
-      return { watchVidPage: updatedWatchVidPageState };
-    },
-    SET_WVID_CHANNEL_ICON: (curState, APIResponse) => {
-        console.log(APIResponse)
-      let updatedWatchVidPageState = { ...curState.watchVidPage };
-      updatedWatchVidPageState = {
-        ...updatedWatchVidPageState,
-        videoDetails: {
-          ...updatedWatchVidPageState.videoDetails,
+          subscriberCount: parseNumber(APIResponse.items[0].statistics.subscriberCount),
           channelIcon: APIResponse.items[0].snippet.thumbnails.default.url,
         },
       };
@@ -69,57 +54,14 @@ const configureStore = () => {
       };
       return { watchVidPage: updatedWatchVidPageState };
     },
-    SET_WVID_RELATED_VIDS: (curState, APIResponse) => {
-      const videoDataArray = [];
-      const relatedVideosId = [];
-
-      APIResponse.items.forEach((vidData, index) => {
-        if (vidData.snippet) {
-          const parsedData = {
-            channelName: vidData.snippet.channelTitle,
-            title: parseText(vidData.snippet.title, 50),
-            datePosted: parseTime(vidData.snippet.publishedAt),
-            image: `https://img.youtube.com/vi/${vidData.id.videoId}/hqdefault.jpg`,
-            videoId: vidData.id.videoId,
-          };
-          videoDataArray.push(parsedData);
-          relatedVideosId.push(vidData.id.videoId);
-        }
-      });
-      let updatedWatchVidPageState = { ...curState.watchVidPage };
-      updatedWatchVidPageState = {
-        ...updatedWatchVidPageState,
-        relatedVideos: videoDataArray,
-        relatedVidsId: relatedVideosId,
-      };
-      return { watchVidPage: updatedWatchVidPageState };
-    },
-    SET_WVID_RELATED_VIDS_VIEW_COUNT: (curState, APIResponse) => {
-        const videoDataArray = [ ...curState.watchVidPage.relatedVideos ];
-        Array.from(APIResponse.items).forEach((vidData) => {
-          // const viewCount = vidData.statistics.viewCount;
-          videoDataArray.forEach((videoData, index) => {
-            if (videoData.videoId === vidData.id) {
-              videoDataArray[index].viewCount = parseNumber(vidData.statistics.viewCount);
-              videoDataArray[index].duration = parseDuration(vidData.contentDetails.duration);
-            }
-          });
-        });
-        let updatedWatchVidPageState = { ...curState.watchVidPage };
-        updatedWatchVidPageState = {
-          ...updatedWatchVidPageState,
-          relatedVideos: videoDataArray,
-        };
-        return { watchVidPage: updatedWatchVidPageState };
-    },
     RESET_WDIV_STATE: (curState) => {
+      console.log('RESET')
       return {
         watchVidPage: {
           relatedVideos: null,
           videoDetails: null,
           isVidDetailsFetched: false,
           isOtherVidDetailsFetched: false,
-          relatedVidsId: null,
         }
       }
     }
@@ -130,7 +72,6 @@ const configureStore = () => {
     videoDetails: null,
     isVidDetailsFetched: false,
     isOtherVidDetailsFetched: false,
-    relatedVidsId: null,
   };
 
   initStore(actions, { watchVidPage: initialState });

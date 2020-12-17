@@ -57,6 +57,12 @@ const useSearchReducer = (curSearchState, action) => {
         ...curSearchState,
         videosData: vidDataArray,
       };
+    case "RESET_STATE": 
+      return {
+        videosData: null,
+        loading: false,
+        error: null,
+        }
     default:
       throw new Error("Should not be reached!");
   }
@@ -84,7 +90,7 @@ const useSearchHttp = () => {
             if (vidData.snippet) {
               const parsedData = {
                 channelName: vidData.snippet.channelTitle,
-                title: parseText(vidData.snippet.title, 50),
+                title: vidData.snippet.title,
                 datePosted: parseTime(vidData.snippet.publishedAt),
                 image: `https://img.youtube.com/vi/${vidData.id.videoId}/mqdefault.jpg`,
                 videoId: vidData.id.videoId,
@@ -101,11 +107,7 @@ const useSearchHttp = () => {
             type: "SET_SEARCH_RESULTS",
             results: videoDataArray,
           });
-          return axios.get(
-            `https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(
-              ","
-            )}&key=${APIKey}`
-          );
+          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKey}`);
         })
         .then((response) => {
             console.log(response.data)
@@ -114,11 +116,7 @@ const useSearchHttp = () => {
             results: response.data,
           });
 
-          return axios.get(
-            `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(
-              ","
-            )}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKey}`
-          );
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKey}`);
         })
         .then((response) => {
           dispatchSearch({
@@ -130,11 +128,16 @@ const useSearchHttp = () => {
     [APIKey]
   );
 
+  const resetState = useCallback(() => {
+    dispatchSearch({type: 'RESET_STATE'})
+  }, [])
+
   return {
     isLoading: searchState.loading,
-    data: searchState.videosData,
+    searchData: searchState.videosData,
     error: searchState.error,
     sendSearchRequest: sendSearchRequest,
+    resetSearchState: resetState
   };
 };
 

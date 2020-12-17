@@ -19,14 +19,17 @@ const SearchResultCard = (props) => {
 
   useEffect(() => {
     if (vidData) {
-      console.log(windowSize);
-      setNoOfDescChars(windowSize / 9);
-      setNoOfTitleChars(windowSize / 11);
-
       if (windowSize < 292) {
-        setNoOfDescChars(windowSize / 10);
+        setNoOfDescChars(windowSize / 17);
         setNoOfTitleChars(windowSize / 11);
+      } else if (windowSize < 1200) {
+        setNoOfDescChars(windowSize / 9);
+        setNoOfTitleChars(windowSize / 28);
+      } else  {
+        setNoOfDescChars(windowSize / 9);
+        setNoOfTitleChars(windowSize / 18);
       }
+
     }
   }, [windowSize, vidData]);
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import './Spinner.scss'
 
-const Spinner = () => {
+const Spinner = (props) => {
     return (
-        <span className="spinner"></span>
+        <span className="spinner" style={{top: props.top}}></span>
     )
 }
 

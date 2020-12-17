@@ -37,6 +37,7 @@
             width: 100%;
             top: 3.5rem;
             z-index: 1000;
+            background-color: black;
 
             @include respond(tab-port) {
                 position: static;
@@ -76,6 +77,7 @@
         height: 100%;
         margin-top: 25px;
         padding: 0 10px;
+        position: relative;
 
         @include respond(tab-big) {
             margin: 0;

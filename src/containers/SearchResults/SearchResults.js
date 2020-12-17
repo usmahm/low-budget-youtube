@@ -11,7 +11,7 @@ import useSearchHttp from '../../hooks/useSearchHttp';
 const SearchRes = (props) => {
     // const { data, sendVideosRequest } = useVideoHttp()
     console.log(props)
-    const { data, sendSearchRequest} = useSearchHttp()
+    const { searchData, sendSearchRequest} = useSearchHttp()
     let searchQuery = new URLSearchParams(props.location.search).get('search-query');
 
     const APIKey = "AIzaSyBQYPwOPrbiFmiafbPOKlxQsieNuMV31yI"; // Key 2
@@ -24,9 +24,9 @@ const SearchRes = (props) => {
 
     let videos = <Spinner />
 
-    if (data) {
-        console.log(data)
-        videos = data.map((vidData) => (
+    if (searchData) {
+        console.log(searchData)
+        videos = searchData.map((vidData) => (
             <SearchResultCard key={vidData.videoId} videosData={vidData} />
           ))
     }

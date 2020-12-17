@@ -2,77 +2,59 @@ import React, { useEffect } from "react";
 
 import { useStore } from '../../store/store'
 import useHttp from "../../hooks/useHttp";
+import useSearchHttp from "../../hooks/useSearchHttp";
 
 import WatchVidCard from "../../components/VidCard/WatchVidCard/WatchVidCard";
 import AboutVid from "../../components/WatchVid/AboutVids/AboutVid";
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 import "./WatchVid.scss";
 
 const WatchVid = React.memo((props) => {
   const { sendRequest, data, reqExtra } = useHttp();
+  const { sendSearchRequest, searchData, resetSearchState } = useSearchHttp();
   const [ state, dispatch ] = useStore();
 
+  const relatedVideos = searchData;
   const videoDetails = state.watchVidPage.videoDetails;
-  const relatedVideos = state.watchVidPage.relatedVideos
   const isVidDetailsFetched = state.watchVidPage.isVidDetailsFetched;
   const isOtherVidDetailsFetched = state.watchVidPage.isOtherVidDetailsFetched;
-  const relatedVidsId = state.watchVidPage.relatedVidsId;
   const channelID = state.watchVidPage.videoDetails ? state.watchVidPage.videoDetails.channelID : null;
 
   let videoId = new URLSearchParams(props.location.search).get('videoId');
-  const APIKey = "AIzaSyAqeL-FB6D4o0Yd7MDEbrMSHxQR3aA5ZsA"; // Key 3
+  let APIKey = "AIzaSyAqeL-FB6D4o0Yd7MDEbrMSHxQR3aA5ZsA"; // Key 3
+  APIKey = 'AIzaSyD-o-aKL9q8Zh25uYSRZAj-KQQu8UVHFY4'
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   CORSAnywhereURL = "";
 
   useEffect(() => {
     if (!isVidDetailsFetched) {
+      // FETCHES DATA FOR VIDEO
       sendRequest(
         `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${APIKey}`
       );
+      // FETCHES DATA FOR RELATED VIDEOS SECTION
+      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKey}`)
       dispatch('SET_WVID_DATA_IS_FETCHED', {isVidDetailsFetched: true})
     } else if (!isOtherVidDetailsFetched && channelID) {
-      console.log(channelID)
+      // FETCHES DATA FOR VIDEO CHANNEL DETAILS
+      console.log('INNNNNNNNNN')
       sendRequest(
-        `${CORSAnywhereURL}https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelID}&key=${APIKey}`,
+        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${channelID}&key=${APIKey}`,
         {
-          identifier: "SUBSCRIBER_COUNT",
-        }
-      );
-      sendRequest(
-        `${CORSAnywhereURL}https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelID}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKey}`,
-        {
-          identifier: "GET_CHANNEL_ICON",
-        }
-      );
-      sendRequest(
-        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKey}`,
-        {
-          identifier: "RELATED_VIDEOS",
+          identifier: "GET_WVID_CHANNEL_DATA",
         }
       );
       dispatch('SET_WVID_DATA_IS_FETCHED', {isOtherVidDetailsFetched: true})
-    } else if (relatedVidsId) {
-      sendRequest(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${relatedVidsId.join(",")}&key=${APIKey}`,
-        {
-          identifier: "GET_RELATED_VIDEOS_DATA",
-        }
-      );
     }
-  }, [sendRequest, videoId, APIKey, CORSAnywhereURL, isVidDetailsFetched, channelID, dispatch, isOtherVidDetailsFetched, relatedVidsId]);
+  }, [sendRequest, sendSearchRequest, videoId, APIKey, CORSAnywhereURL, isVidDetailsFetched, channelID, dispatch, isOtherVidDetailsFetched]);
 
   useEffect(() => {
     if (data) {
       if (!reqExtra) {
         dispatch('SET_WVID_PAGE_VIDEO_DETAILS', data)
-      } else if (reqExtra.identifier === "SUBSCRIBER_COUNT") {
-        dispatch('SET_SUBSCRIBER_COUNT', data)
-      } else if (reqExtra.identifier === "GET_CHANNEL_ICON") {
-        dispatch('SET_WVID_CHANNEL_ICON', data)
-      } else if (reqExtra.identifier === "RELATED_VIDEOS") {
-        dispatch('SET_WVID_RELATED_VIDS', data)
-      } else if (reqExtra.identifier === "GET_RELATED_VIDEOS_DATA") {
-        dispatch('SET_WVID_RELATED_VIDS_VIEW_COUNT', data)
+      } else if (reqExtra.identifier === "GET_WVID_CHANNEL_DATA") {
+        dispatch('SET_WVID_CHANNEL_DETAILS', data)
       }
     }
   }, [data, reqExtra, dispatch, CORSAnywhereURL, sendRequest, videoId]);
@@ -80,8 +62,9 @@ const WatchVid = React.memo((props) => {
   useEffect(() => {
     return () => {
       dispatch('RESET_WDIV_STATE')
+      resetSearchState()
     }
-  }, [dispatch])
+  }, [dispatch, videoId, resetSearchState])
 
   return (
     <div className="watchvid-page">
@@ -104,7 +87,7 @@ const WatchVid = React.memo((props) => {
         </div>
       </div>
       <div className="related-videos">
-        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): null}
+        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <Spinner top='0' />}
       </div>
     </div>
   );
