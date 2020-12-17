@@ -14,7 +14,7 @@ const SearchRes = (props) => {
     const { searchData, sendSearchRequest} = useSearchHttp()
     let searchQuery = new URLSearchParams(props.location.search).get('search-query');
 
-    const APIKey = "AIzaSyBQYPwOPrbiFmiafbPOKlxQsieNuMV31yI"; // Key 2
+    const APIKey = "AIzaSyDVJP-R4t3T4Qj2FLMsgaAB39B4JlWvahQ"; // Key 6
     let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
     CORSAnywhereURL = "";  
     

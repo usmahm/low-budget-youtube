@@ -7,7 +7,6 @@ import Avatar from "@material-ui/core/Avatar";
 import "./SearchResultCard.scss";
 
 const SearchResultCard = (props) => {
-  let detailsDiv = useRef();
   const vidData = props.videosData;
   let [noOfDescChars, setNoOfDescChars] = useState(0);
   const [noOfTitleChars, setNoOfTitleChars] = useState(0);
@@ -45,7 +44,7 @@ const SearchResultCard = (props) => {
           <p className="duration">{vidData.duration}</p>
         </div>
       </div>
-      <div className="details" ref={detailsDiv}>
+      <div className="details">
         <div className="details__text">
           <h3>{parseText(vidData.title, noOfTitleChars)}</h3>
           <p>

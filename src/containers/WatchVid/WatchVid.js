@@ -22,7 +22,7 @@ const WatchVid = React.memo((props) => {
   const channelID = state.watchVidPage.videoDetails ? state.watchVidPage.videoDetails.channelID : null;
 
   let videoId = new URLSearchParams(props.location.search).get('videoId');
-  let APIKey = "AIzaSyAqeL-FB6D4o0Yd7MDEbrMSHxQR3aA5ZsA"; // Key 3
+  let APIKey = "AIzaSyAI3frSXVHODo5CIamVABLPp4hZM0elCkw"; // Key 7
   APIKey = 'AIzaSyD-o-aKL9q8Zh25uYSRZAj-KQQu8UVHFY4'
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   CORSAnywhereURL = "";

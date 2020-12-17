@@ -68,7 +68,7 @@ const useSearchReducer = (curSearchState, action) => {
 };
 
 const useSearchHttp = () => {
-  let APIKey = "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8"; // Key 1
+  let APIKey = "AIzaSyADE6JG6s_HpU-AMFTNcO_PvmE_yt4WgLc"; // Key 5
 
   const [searchState, dispatchSearch] = useReducer(
     useSearchReducer,

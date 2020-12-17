@@ -83,6 +83,11 @@
           flex-direction: row;
         }
 
+        &.downvotes {
+          padding-right: 0;
+          margin-right: 18px;
+        }
+
         &.upvotes,
         &.downvotes {
           @include respond(tab-port) {

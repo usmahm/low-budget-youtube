@@ -11,17 +11,29 @@ const TrendingVidCard = props => {
     const vidData = props.videosData;
     let [noOfDescChars, setNoOfDescChars] = useState(0);
     const [noOfTitleChars, setNoOfTitleChars] = useState(0)
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
+    
+    const resizeHandler = () => {
+        setWindowSize(window.innerWidth)
+    };
 
     useEffect(() => {
-        console.log(detailsDiv.current.offsetWidth)
-        setNoOfDescChars(detailsDiv.current.offsetWidth / 3.5)
-        setNoOfTitleChars(detailsDiv.current.offsetWidth / 3.5)
-        
-        if (detailsDiv.current.offsetWidth < 292) {
-            setNoOfDescChars(detailsDiv.current.offsetWidth / 5)
-            setNoOfTitleChars(detailsDiv.current.offsetWidth / 7)
+        if (vidData) {
+        if (windowSize < 900) {
+            setNoOfDescChars(windowSize / 17);
+            setNoOfTitleChars(windowSize / 17);
+        } else {
+            setNoOfDescChars(windowSize / 9);
+            setNoOfTitleChars(windowSize / 15);
         }
-    }, [])
+
+        }
+    }, [windowSize, vidData]);
+
+    useEffect(() => {
+        window.addEventListener("resize", resizeHandler);
+    }, []);
+
 
     return (
         <Link to={`/watch?videoId=${vidData.videoId}`} className="trending-vid-card">
