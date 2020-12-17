@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   parseDuration,
   parseTime,
-  parseText,
   parseNumber,
 } from "../shared/utilities";
 
