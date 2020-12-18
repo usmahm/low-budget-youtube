@@ -1,0 +1,16 @@
+
+@import "../../shared/sass/variables.scss";
+@import "../../shared/sass/mixins.scss";
+
+.channel {
+  padding-top: 3.5rem;
+  width: 100%;
+  padding-bottom: 3rem;
+  position: relative;
+
+  @include respond(tab-port) {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 0;
+  }
+}

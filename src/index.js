@@ -5,9 +5,8 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
-// import configureHomePageStore from './store/homepage-store';
-// import configureTrendingPageStore from './store/trendingpage-store';
 import configureWatchVidPageStore from './store/watchVidPage-store';
+import configureChannelStore from './store/channel-store';
 import configureGlobalStore from './store/global-store';
 
 const app = (
@@ -16,9 +15,8 @@ const app = (
   </BrowserRouter>
 )
 
-// configureHomePageStore();
-// configureTrendingPageStore();
 configureWatchVidPageStore();
+configureChannelStore();
 configureGlobalStore();
 
 ReactDOM.render(

@@ -36,12 +36,16 @@ li {
         right: 5px;
         bottom: 5px;
         z-index: 100;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         font-weight: 500;
         color: $color-white;
         padding: 2px 3px;
         border-radius: 3px;
         background-color: rgba($color-black, 0.85);
+        
+        @include respond(tab-port) {     
+          font-size: 0.8rem;
+        }
       }
     }
   }

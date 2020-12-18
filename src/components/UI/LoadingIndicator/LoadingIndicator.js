@@ -1,10 +1,10 @@
 import React from 'react';
-import './Spinner.scss'
+import './LoadingIndicator.scss'
 
-const Spinner = (props) => {
+const LoadingIndicator = (props) => {
     return (
         <span className="spinner" style={{top: props.top}}></span>
     )
 }
 
-export default Spinner;
+export default LoadingIndicator;

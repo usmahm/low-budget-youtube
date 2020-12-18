@@ -6,7 +6,7 @@ import useSearchHttp from "../../hooks/useSearchHttp";
 
 import WatchVidCard from "../../components/VidCard/WatchVidCard/WatchVidCard";
 import AboutVid from "../../components/WatchVid/AboutVids/AboutVid";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 
 import "./WatchVid.scss";
 
@@ -27,6 +27,7 @@ const WatchVid = React.memo((props) => {
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   CORSAnywhereURL = "";
 
+  // Sends Request to the server
   useEffect(() => {
     if (!isVidDetailsFetched) {
       // FETCHES DATA FOR VIDEO
@@ -38,7 +39,6 @@ const WatchVid = React.memo((props) => {
       dispatch('SET_WVID_DATA_IS_FETCHED', {isVidDetailsFetched: true})
     } else if (!isOtherVidDetailsFetched && channelID) {
       // FETCHES DATA FOR VIDEO CHANNEL DETAILS
-      console.log('INNNNNNNNNN')
       sendRequest(
         `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${channelID}&key=${APIKey}`,
         {
@@ -87,7 +87,7 @@ const WatchVid = React.memo((props) => {
         </div>
       </div>
       <div className="related-videos">
-        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <Spinner top='0' />}
+        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <LoadingIndicator top='0' />}
       </div>
     </div>
   );

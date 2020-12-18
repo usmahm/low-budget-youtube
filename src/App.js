@@ -6,6 +6,7 @@ import Home from "./containers/Home/Home";
 import Trending from "./containers/Trending/Trending";
 import WatchVid from './containers/WatchVid/WatchVid';
 import SearchResults from './containers/SearchResults/SearchResults'
+import Channel from "./containers/Channel/Channel";
 
 import "./App.scss";
 
@@ -13,6 +14,7 @@ const App = props => {
   
   let routes = (
     <Fragment>
+      <Route path="/channel/:id" component={Channel} />
       <Route path="/search" component={SearchResults} />
       <Route path="/watch" component={WatchVid} />
       <Route path='/trending' component={Trending} />

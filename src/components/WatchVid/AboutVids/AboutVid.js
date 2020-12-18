@@ -5,6 +5,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom';
 
 
 const AboutVid = React.memo(props => {
@@ -33,7 +34,9 @@ const AboutVid = React.memo(props => {
             <div className="buttom">
                 <div className="channel-details">
                     <div>
-                        <Avatar src={videoDetails.channelIcon ? videoDetails.channelIcon : ''} className="icon" />
+                        <Link to={`/channel/${videoDetails.channelID}/videos`}>
+                            <Avatar src={videoDetails.channelIcon ? videoDetails.channelIcon : ''} className="icon" />
+                        </Link>
                         <span>
                             <p className="channel-name">{videoDetails.channelName}</p>
                             <p>{videoDetails.subscriberCount} subscribers</p>

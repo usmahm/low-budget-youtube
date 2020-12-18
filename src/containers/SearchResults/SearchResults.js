@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 // import useVideoHttp from '../../hooks/useSearchHttp';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 
 import SearchResultCard from '../../components/VidCard/SearchResultCard/SearchResultCard';
 
@@ -22,7 +22,7 @@ const SearchRes = (props) => {
         sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&type=video&key=${APIKey}`)
     }, [sendSearchRequest, searchQuery, CORSAnywhereURL])
 
-    let videos = <Spinner />
+    let videos = <LoadingIndicator />
 
     if (searchData) {
         console.log(searchData)

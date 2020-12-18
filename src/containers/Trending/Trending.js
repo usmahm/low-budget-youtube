@@ -3,7 +3,7 @@ import React, { useEffect} from "react";
 import useVideoHttp from '../../hooks/useVideoHttp';
 
 import TrendingVidCard from "../../components/VidCard/TrendingVidCard/TrendingVidCard";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 import "./Trending.scss";
 
 const Trending = (props) => {
@@ -19,7 +19,7 @@ const Trending = (props) => {
     sendVideosRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=20&regionCode=${regionCode}&key=${APIKey}`);
   }, [CORSAnywhereURL, APIKey, sendVideosRequest])
 
-  let videos = <Spinner />
+  let videos = <LoadingIndicator />
 
   if (data) {
     videos = data.map((vidData) => (

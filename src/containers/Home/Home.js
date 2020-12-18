@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import useVideoHttp from '../../hooks/useVideoHttp';
 
 import HomeVidCard from "../../components/VidCard/HomeVidCard/HomeVidCard";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 import "./Home.scss";
 
 const MainPage = (props) => {
@@ -19,7 +19,7 @@ const MainPage = (props) => {
       sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&key=${APIKey}`)
   }, [APIKey, sendVideosRequest]);
 
-  let videos = <Spinner />
+  let videos = <LoadingIndicator />
 
   if (data) {
     videos = data.map((vidData) => (

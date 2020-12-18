@@ -86,7 +86,7 @@ const useSearchHttp = () => {
           console.log(response);
 
           response.data.items.forEach((vidData, index) => {
-            if (vidData.snippet) {
+            if (vidData.snippet && vidData.id.videoId) {
               const parsedData = {
                 channelName: vidData.snippet.channelTitle,
                 title: vidData.snippet.title,

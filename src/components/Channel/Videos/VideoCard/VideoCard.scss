@@ -1,0 +1,92 @@
+@import "../../../../shared/sass/variables.scss";
+@import "../../../../shared/sass/mixins.scss";
+
+.channel-vid-card {
+    margin: 0 2px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 7px;
+
+    @include respond(tab-port) {     
+        margin-bottom: 25px;
+      display: block;
+      width: 13rem;
+    }
+
+  .img-container {
+    position: relative;
+    width: 9rem;
+    margin-right: 7px;
+    flex-shrink: 0;
+
+    @include respond(tab-port) {     
+        margin-bottom: 7px;
+        width: 100%;
+    }
+
+    div {
+      img {
+        width: 100%;
+      }
+
+      p {
+        position: absolute;
+        z-index: 10;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: $color-white;
+        padding: 2px 3px;
+        border-radius: 3px;
+        background-color: rgba($color-black, 0.85);
+        right: 3px;
+        bottom: 7px;
+
+        @include respond(tab-port) {     
+            font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .details {
+    &__text {
+    //   font-size: 0.9rem;
+      h3 {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: $color-black;
+        margin-bottom: 4px;
+        
+        @include respond(tab-port) {     
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        color: $color-grey-d1;
+        font-size: 0.7rem;
+
+        @include respond(tab-port) {     
+            font-size: 0.8rem;
+        }
+
+        .s-circle {
+          width: 3px;
+          height: 3px;
+          margin: 0 5px;
+          background-color: $color-grey-d1;
+          display: inline-block;
+          border-radius: 50%;
+
+          &.m {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,162 @@
+@import "../../../shared/sass/variables.scss";
+@import "../../../shared/sass/mixins.scss";
+
+
+.channel-header {
+    width: 100%;
+
+    div.banner {
+        height: 4rem;
+
+        @include respond(tab-port) { 
+            height: 11.4rem;
+        }
+    }
+
+    div.about {
+        padding: 1.7rem 2rem;
+        position: relative;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $color-grey-l1;
+        
+        @include respond(tab-port) {     
+            padding: 1rem 5.7rem;
+        }
+
+        &-text {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            .icon {
+                width: 3rem;
+                height: 3rem;
+                position: absolute;
+                top: 0;
+                left: 0.8rem;
+                transform: translateY(-50%);
+
+                @include respond(tab-port) {     
+                    width: 5rem;
+                    height: 5rem;
+                    margin-right: 1.5rem;
+                    position: static;
+                    transform: translateX(0);
+                }
+            }
+
+            span {
+                h1 {
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: $color-black;
+                    margin-bottom: 3px;
+                    
+                    @include respond(tab-port) {     
+                        margin-bottom: 5px;
+                        font-size: 1.5rem;
+                      }
+                }
+                
+                div {
+                    display: flex;
+                    justify-content: flex-start;
+                    
+                    button {
+                        font: inherit;
+                        border: none;
+                        font-size: 0.75rem;
+                        color: $color-red;
+                        font-weight: 500;
+                        margin-right: 6px;
+
+                        @include respond(tab-port) {     
+                            display: none;
+                        }
+                    }
+
+                    p {
+                        font-size: 0.8rem;
+                        color: $color-grey-d1;
+    
+                        @include respond(tab-port) {    
+                            font-size: 0.9rem;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        button.d {
+            padding: 10px 14px;
+            background-color: red;
+            color: #ffffff;
+            border: none;
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 2px;
+            display: none;
+
+            @include respond(tab-port) {     
+                display: inline-block;
+            }
+        }
+    }
+
+    div.routes-links {
+        display: flex;
+        justify-content: flex-start;
+        background-color: $color-grey-l1;
+        padding: 0;
+
+        @include respond(tab-port) {     
+            padding: 0 6.2rem;
+            
+        }
+
+        .route {
+            padding: 15px 24px;
+            position: relative;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: $color-black;
+            
+            @include respond(tab-port) {     
+                color: $color-grey-d1;
+                font-size: 0.9rem;
+                font-weight: 600;
+            }
+            span {
+                transition: .3s;
+                width: 0;
+                height: 2px;
+                background-color: red;
+
+                @include respond(tab-port) {     
+                    height: 3px;
+                    background-color: $color-grey-d1;
+                }
+            }
+
+            &:hover {
+                color: $color-black;
+            }
+
+            &.active {
+                color: $color-black;
+
+                span {
+                    width: 100%;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
