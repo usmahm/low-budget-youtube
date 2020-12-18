@@ -74,7 +74,7 @@ const WatchVid = React.memo((props) => {
             <div>
               <iframe
                 title="name"
-                src={`//www.youtube.com/embed/${videoId}`} // ADD Later ?autoplay=1&mute=1
+                src={`//www.youtube.com/embed/${videoId}?autoplay=1&mute=1`} // ADD Later ?autoplay=1&mute=1
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
