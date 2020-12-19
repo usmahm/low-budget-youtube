@@ -1,5 +1,8 @@
-import React, { Fragment } from "react";
-import { Route } from 'react-router-dom'
+import React, { Fragment, useEffect } from "react";
+import { Route } from 'react-router-dom';
+
+import useHttp from './hooks/useHttp';
+import { useStore } from './store/store';
 
 import Layout from './hoc/Layout/Layout';
 import Home from "./containers/Home/Home";
@@ -11,6 +14,19 @@ import Channel from "./containers/Channel/Channel";
 import "./App.scss";
 
 const App = props => {
+  const { sendRequest, data } = useHttp();
+  const dispatch = useStore()[1]
+
+  useEffect(() => {
+    sendRequest('https://freegeoip.app/json/')
+  }, [sendRequest])
+
+  useEffect(() => {
+    if (data) {
+      console.log(data)
+      dispatch('SET_COUNTRY_CODE', data.country_code)
+    }
+  }, [data, dispatch])
   
   let routes = (
     <Fragment>

@@ -9,8 +9,6 @@ import './SearchResults.scss'
 import useSearchHttp from '../../hooks/useSearchHttp';
 
 const SearchRes = (props) => {
-    // const { data, sendVideosRequest } = useVideoHttp()
-    console.log(props)
     const { searchData, sendSearchRequest} = useSearchHttp()
     let searchQuery = new URLSearchParams(props.location.search).get('search-query');
 
