@@ -31,7 +31,11 @@ const TrendingVidCard = props => {
     }, [windowSize, vidData]);
 
     useEffect(() => {
-        window.addEventListener("resize", resizeHandler);
+       window.addEventListener("resize", resizeHandler);
+
+        return () => {
+            window.removeEventListener("resize", resizeHandler)
+        }
     }, []);
 
 

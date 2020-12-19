@@ -8,7 +8,12 @@ import './Header.scss';
 
 const Header = (props) => {
 
-    let header = <p>Loading...</p>
+    let header = (
+        <div className="loading-placeholder">
+            <div className="banner"></div>
+            <div className="about"></div>
+        </div>
+    )
 
     let bannerStyle = {}
 
@@ -19,6 +24,7 @@ const Header = (props) => {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }
+
         header = (
             <Fragment>
                 <div className="banner" style={bannerStyle}>

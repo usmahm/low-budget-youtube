@@ -34,6 +34,10 @@ const SearchResultCard = (props) => {
 
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler)
+    }
   }, []);
 
   return (

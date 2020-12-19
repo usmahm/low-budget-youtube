@@ -11,6 +11,10 @@
     margin-bottom: 40px;
   }
 
+  a {
+    display: inline-block;
+  }
+
   .img-container {
     min-width: 15rem;
     // max-width: 20rem;
@@ -21,6 +25,7 @@
     // height: 100%;
     padding-top: 56%;
     margin-bottom: 10px;
+    display: block;
 
     div {
       position: absolute;
@@ -59,9 +64,9 @@
   .details {
     display: flex;
     justify-content: flex-start;
-    padding-left: 12px;
-    padding-right: 16px;
-
+    padding: 0 12px;
+    position: relative;
+    
     @include respond(tab-port) {
       padding: 0;
     }
@@ -69,10 +74,24 @@
     .c-img {
       margin-right: 10px;
       height: max-content;
+      position: absolute;
+      top: 0;
+      left: 12px;
+
+      @include respond(tab-port) {
+        left: 0;
+      }
+  
     }
 
     &__text {
       font-size: 0.9rem;
+      display: block;
+      padding-left: 3.125rem;
+
+      @include respond(tab-port) {
+      }  
+
       h3 {
         font-weight: 500;
         color: $color-black;
@@ -106,10 +125,6 @@
                   display: none;
               }
           }
-        }
-
-        a {
-          // display: inline-block;
         }
 
         p {

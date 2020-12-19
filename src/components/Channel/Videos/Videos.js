@@ -3,7 +3,7 @@ import React from 'react'
 import { useStore } from '../../../store/store';
 
 import VideoCard from './VideoCard/VideoCard';
-// import LoadingIndicator from '../../UI/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../../UI/LoadingIndicator/LoadingIndicator';
 
 import './Videos.scss'
 
@@ -12,7 +12,7 @@ const Videos = (props) => {
 
     console.log(state.channelPage.channelVideos)
 
-    let videos = null
+    let videos = <LoadingIndicator type="loadingBox" />
 
     if (state.channelPage.channelVideos) {
         videos = state.channelPage.channelVideos.map((video => <VideoCard key={video.videoId} videoData={video} />))

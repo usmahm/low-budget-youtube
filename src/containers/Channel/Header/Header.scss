@@ -1,6 +1,26 @@
 @import "../../../shared/sass/variables.scss";
 @import "../../../shared/sass/mixins.scss";
 
+.channel-header .loading-placeholder {
+    .banner {
+        height: 4rem;
+        background-color: $color-grey-l4;
+
+        @include respond(tab-port) { 
+            height: 11.4rem;
+        }
+
+    }
+
+    .about {
+        height: 5.7rem;
+
+        @include respond(tab-port) { 
+            height: 7rem;
+            background-color: $color-grey-l1;
+        }
+    }
+}
 
 .channel-header {
     width: 100%;

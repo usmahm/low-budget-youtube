@@ -28,11 +28,11 @@ const WatchVidCard = (props) => {
   }, [windowSize, videoDetails]);
 
   useEffect(() => {
-    console.log(noOfTitleChars);
-  }, [noOfTitleChars]);
-
-  useEffect(() => {
     window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler)
+    }
   }, []);
 
   return (

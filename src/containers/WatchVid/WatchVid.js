@@ -87,7 +87,7 @@ const WatchVid = React.memo((props) => {
         </div>
       </div>
       <div className="related-videos">
-        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <LoadingIndicator top='0' />}
+        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <LoadingIndicator type="loadingBox" top='0' />}
       </div>
     </div>
   );
