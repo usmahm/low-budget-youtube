@@ -51,17 +51,19 @@ const Trending = (props) => {
   }
 
   return (
-    <InfiniteScroll
-      pageStart={0}
-      loadMore={getMoreVideos}
-      hasMore={hasMore}
-      loader={<LoadingIndicator key="spinner" type="spinner" />}
-    >
-      <main className="trending">
-        {videos}
-      </main>
+    <main className="trending">
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={getMoreVideos}
+        hasMore={hasMore}
+        loader={<LoadingIndicator key="spinner" type="spinner" />}
+      >
+        <div className="videos-wrapper">
+          {videos}
+        </div>
+      </InfiniteScroll>
       {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of the page.</p> : null}
-    </InfiniteScroll>
+    </main>
   );
 };
 

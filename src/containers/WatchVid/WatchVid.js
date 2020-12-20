@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
+import InfiniteScroll from 'react-infinite-scroller';
 import { useStore } from '../../store/store'
 import useHttp from "../../hooks/useHttp";
 import useSearchHttp from "../../hooks/useSearchHttp";
+import APIKeys from '../../shared/APIKeys';
 
 import WatchVidCard from "../../components/VidCard/WatchVidCard/WatchVidCard";
 import AboutVid from "../../components/WatchVid/AboutVids/AboutVid";
@@ -11,8 +13,10 @@ import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndica
 import "./WatchVid.scss";
 
 const WatchVid = React.memo((props) => {
+  const [hasMore, setHasMore] = useState(false)
+  const hardCodedLimit = 75 // Prevent loading more than 75 search results thus making API limit reach time longer
   const { sendRequest, data, reqExtra } = useHttp();
-  const { sendSearchRequest, searchData, resetSearchState } = useSearchHttp();
+  const { sendSearchRequest, searchData, resetSearchState, totalResults, nextPageToken, fetchMoreSearchResult } = useSearchHttp();
   const [ state, dispatch ] = useStore();
 
   const relatedVideos = searchData;
@@ -22,32 +26,30 @@ const WatchVid = React.memo((props) => {
   const channelID = state.watchVidPage.videoDetails ? state.watchVidPage.videoDetails.channelID : null;
 
   let videoId = new URLSearchParams(props.location.search).get('videoId');
-  let APIKey = "AIzaSyAI3frSXVHODo5CIamVABLPp4hZM0elCkw"; // Key 7
-  APIKey = 'AIzaSyD-o-aKL9q8Zh25uYSRZAj-KQQu8UVHFY4'
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   CORSAnywhereURL = "";
 
-  // Sends Request to the server
+  // Handles all first request to the server
   useEffect(() => {
     if (!isVidDetailsFetched) {
       // FETCHES DATA FOR VIDEO
       sendRequest(
-        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${APIKey}`
+        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${APIKeys.key7}`
       );
       // FETCHES DATA FOR RELATED VIDEOS SECTION
-      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKey}`)
+      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKeys.key8}`)
       dispatch('SET_WVID_DATA_IS_FETCHED', {isVidDetailsFetched: true})
     } else if (!isOtherVidDetailsFetched && channelID) {
-      // FETCHES DATA FOR VIDEO CHANNEL DETAILS
+      // FETCHES DATA FOR VIDEO CHANNEL's DETAILS
       sendRequest(
-        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${channelID}&key=${APIKey}`,
+        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${channelID}&key=${APIKeys.key9}`,
         {
           identifier: "GET_WVID_CHANNEL_DATA",
         }
       );
       dispatch('SET_WVID_DATA_IS_FETCHED', {isOtherVidDetailsFetched: true})
     }
-  }, [sendRequest, sendSearchRequest, videoId, APIKey, CORSAnywhereURL, isVidDetailsFetched, channelID, dispatch, isOtherVidDetailsFetched]);
+  }, [sendRequest, sendSearchRequest, videoId, CORSAnywhereURL, isVidDetailsFetched, channelID, dispatch, isOtherVidDetailsFetched]);
 
   useEffect(() => {
     if (data) {
@@ -66,6 +68,27 @@ const WatchVid = React.memo((props) => {
     }
   }, [dispatch, videoId, resetSearchState])
 
+  
+  useEffect(() => {
+    // Checks if first API call has been made thus nextPageToken would have been set for the next API call
+    if (totalResults) {
+      setHasMore(true)
+    }
+  }, [totalResults])
+
+  const getMoreVideos = () => {
+    if (searchData.length > 0) {
+        if (searchData.length >= hardCodedLimit) {
+            setHasMore(false)
+            return;
+        }
+        if (searchData.length < hardCodedLimit) {
+            fetchMoreSearchResult(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&pageToken=${nextPageToken}&key=${APIKeys.key10}`)
+        }
+    }
+}
+
+
   return (
     <div className="watchvid-page">
       <div className="video">
@@ -74,7 +97,7 @@ const WatchVid = React.memo((props) => {
             <div>
               <iframe
                 title="name"
-                src={`//www.youtube.com/embed/${videoId}?autoplay=1&mute=1`} // ADD Later ?autoplay=1&mute=1
+                src={`//www.youtube.com/embed/${videoId}?autoplay=1`} // ADD Later ?autoplay=1&mute=1
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -87,7 +110,17 @@ const WatchVid = React.memo((props) => {
         </div>
       </div>
       <div className="related-videos">
-        {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <LoadingIndicator type="loadingBox" top='0' />}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={getMoreVideos}
+          hasMore={hasMore}
+          loader={<LoadingIndicator key="spinner" type="spinner" />}
+        >
+          <div className="videos-wrapper">
+            {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <LoadingIndicator type="loadingBox" top='0' />}
+          </div>
+        </InfiniteScroll>
+        {searchData.length > 0 && searchData.length >= hardCodedLimit ? <p className="page-end__message">You've reached this end of the related videos.</p> : null}
       </div>
     </div>
   );

@@ -2,12 +2,34 @@
 @import "../../shared/sass/mixins.scss";
 
 .search-page {
-    padding: 0 1.25rem; 
-    padding-top: 4.8rem;
-    position: relative;
+    padding-bottom: 3rem;
 
-    @include respond(tab-land) {
-        // width: 100%;
-        margin: 0;
+    @include respond(tab-port) {
+        padding-bottom: 0;
     }
+
+    .results-container {
+        padding: 0 1.25rem; 
+        padding-top: 4.8rem;
+        position: relative;
+    
+        @include respond(tab-land) {
+            margin: 0;
+        }
+    }
+
+    .page-end__message {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 34px;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-align: center;
+        
+        @include respond(tab-port) {
+            font-size: 0.9rem;
+        }
+      }
 }

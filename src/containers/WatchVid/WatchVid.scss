@@ -74,14 +74,31 @@
     }
 
     .related-videos {
-        height: 100%;
-        margin-top: 25px;
-        padding: 0 10px;
-        position: relative;
+        .videos-wrapper {
+            height: 100%;
+            margin-top: 25px;
+            padding: 0 10px;
+            position: relative;
+    
+            @include respond(tab-big) {
+                margin: 0;
+                padding: 0;
+              }
+        }
 
-        @include respond(tab-big) {
-            margin: 0;
-            padding: 0;
+        .page-end__message {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 34px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-align: center;
+                
+                @include respond(tab-port) {
+                    font-size: 0.9rem;
+                }
           }
     }
 }

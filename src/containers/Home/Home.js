@@ -51,17 +51,19 @@ const MainPage = (props) => {
   }
 
   return (
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={getMoreVideos}
-        hasMore={hasMore}
-        loader={<LoadingIndicator key="spinner" type="spinner" />}
-      >
-        <main className="home" key="main">
-            {videos}
-        </main>
+      <main className="home-main">
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={getMoreVideos}
+          hasMore={hasMore}
+          loader={<LoadingIndicator key="spinner" type="spinner" />}
+        >
+          <div className="videos-wrapper">
+              {videos}
+          </div>
+        </InfiniteScroll>
         {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of the page.</p> : null}
-      </InfiniteScroll>
+      </main>
   );
 };
 

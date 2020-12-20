@@ -1,5 +1,6 @@
 import { useCallback, useReducer } from "react";
 import axios from "axios";
+import APIKeys from '../shared/APIKeys';
 
 import {
   parseDuration,
@@ -8,7 +9,9 @@ import {
 } from "../shared/utilities";
 
 const initialState = {
-  videosData: null,
+  videosData: [],
+  totalResults: null,
+  nextPageToken: null,
   loading: false,
   error: null,
 };
@@ -19,7 +22,25 @@ const useSearchReducer = (curSearchState, action) => {
       return {
         ...curSearchState,
         videosData: action.results,
+        nextPageToken: action.nextPageToken,
+        totalResults: action.totalResults
       };
+      case "SET_MORE_SEARCH_RESULTS":
+        // Results need to be filtered becauase the search results returned by the API contains some previous values
+        const filteredResults = action.results.filter(result => {
+          return !curSearchState.videosData.some(e => e.videoId === result.videoId)
+        }) 
+        console.log(curSearchState.videosData)       
+        console.log(filteredResults)
+      
+        return {
+          ...curSearchState,
+          videosData: [
+            ...curSearchState.videosData,
+            ...filteredResults
+          ],
+          nextPageToken: action.nextPageToken,
+        };
     case "SET_SEARCH_RESULTS_DATA1":
       console.log(curSearchState);
       const videoDataArray = [...curSearchState.videosData];
@@ -67,9 +88,32 @@ const useSearchReducer = (curSearchState, action) => {
   }
 };
 
-const useSearchHttp = () => {
-  let APIKey = "AIzaSyADE6JG6s_HpU-AMFTNcO_PvmE_yt4WgLc"; // Key 5
+const parseResponse = (response) => {
+  const channelsIdArray = [];
+  const videoDataArray = [];
+  const videosId = [];
 
+  response.data.items.forEach((vidData, index) => {
+    if (vidData.snippet && vidData.id.videoId) {
+      const parsedData = {
+        channelName: vidData.snippet.channelTitle,
+        title: vidData.snippet.title,
+        datePosted: parseTime(vidData.snippet.publishedAt),
+        image: `https://img.youtube.com/vi/${vidData.id.videoId}/mqdefault.jpg`,
+        videoId: vidData.id.videoId,
+        channelID: vidData.snippet.channelId,
+        description: vidData.snippet.description
+      };
+      videoDataArray.push(parsedData);
+      videosId.push(vidData.id.videoId);
+      channelsIdArray.push(vidData.snippet.channelId);
+    }
+  });
+
+  return [channelsIdArray, videoDataArray, videosId]
+}
+
+const useSearchHttp = () => {
   const [searchState, dispatchSearch] = useReducer(
     useSearchReducer,
     initialState
@@ -77,45 +121,28 @@ const useSearchHttp = () => {
 
   const sendSearchRequest = useCallback(
     (url, reqExtra) => {
-      const channelsIdArr = [];
+      let channelsIdArr = [];
       axios
         .get(url)
         .then((response) => {
-          const videoDataArray = [];
-          const videosId = [];
-          console.log(response);
-
-          response.data.items.forEach((vidData, index) => {
-            if (vidData.snippet && vidData.id.videoId) {
-              const parsedData = {
-                channelName: vidData.snippet.channelTitle,
-                title: vidData.snippet.title,
-                datePosted: parseTime(vidData.snippet.publishedAt),
-                image: `https://img.youtube.com/vi/${vidData.id.videoId}/mqdefault.jpg`,
-                videoId: vidData.id.videoId,
-                channelID: vidData.snippet.channelId,
-                description: vidData.snippet.description
-              };
-              videoDataArray.push(parsedData);
-              videosId.push(vidData.id.videoId);
-              channelsIdArr.push(vidData.snippet.channelId);
-            }
-          });
-          console.log(videoDataArray);
+          console.log(response)
+          const [channelsIdArray, videoDataArray, videosId] = parseResponse(response)
+          channelsIdArr = [...channelsIdArray]
           dispatchSearch({
             type: "SET_SEARCH_RESULTS",
             results: videoDataArray,
+            nextPageToken: response.data.nextPageToken,
+            totalResults: response.data.pageInfo.totalResults   
           });
-          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKey}`);
+          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKeys.key11}`);
         })
         .then((response) => {
-            console.log(response.data)
           dispatchSearch({
             type: "SET_SEARCH_RESULTS_DATA1",
             results: response.data,
           });
 
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKey}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key12}`);
         })
         .then((response) => {
           dispatchSearch({
@@ -124,7 +151,43 @@ const useSearchHttp = () => {
           });
         });
     },
-    [APIKey]
+    []
+  );
+
+  const fetchMoreSearchResult = useCallback(
+    (url, reqExtra) => {
+      let channelsIdArr = [];
+      axios
+        .get(url)
+        .then((response) => {
+          const [channelsIdArray, videoDataArray, videosId] = parseResponse(response)
+          channelsIdArr = [...channelsIdArray]
+          console.log(channelsIdArr)
+          dispatchSearch({
+            type: "SET_MORE_SEARCH_RESULTS",
+            results: videoDataArray,
+            nextPageToken: response.data.nextPageToken
+          });
+          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKeys.key13}`);
+        })
+        .then((response) => {
+            console.log(response.data)
+          dispatchSearch({
+            type: "SET_SEARCH_RESULTS_DATA1",
+            results: response.data,
+          });
+
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key14}`);
+        })
+        .then((response) => {
+          console.log(response)
+          dispatchSearch({
+            type: "SET_SEARCH_RESULTS_CHANNEL_ICON",
+            results: response.data,
+          });
+        });
+    },
+    []
   );
 
   const resetState = useCallback(() => {
@@ -136,7 +199,10 @@ const useSearchHttp = () => {
     searchData: searchState.videosData,
     error: searchState.error,
     sendSearchRequest: sendSearchRequest,
-    resetSearchState: resetState
+    resetSearchState: resetState,
+    fetchMoreSearchResult: fetchMoreSearchResult,
+    nextPageToken: searchState.nextPageToken,
+    totalResults: searchState.totalResults
   };
 };
 
