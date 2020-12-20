@@ -6,7 +6,7 @@ import useSearchHttp from '../../hooks/useSearchHttp'
 import { useStore } from "../../store/store";
 
 import Header from './Header/Header';
-import Videos from '../../components/Channel/Videos/Videos';
+import Videos from './Videos/Videos';
 import About from '../../components/Channel/About/About';
 
 import './Channel.scss'

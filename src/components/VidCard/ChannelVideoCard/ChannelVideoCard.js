@@ -1,9 +1,9 @@
 import React, { } from 'react';
 
 import { Link } from "react-router-dom";
-import { parseText } from '../../../../shared/utilities';
+import { parseText } from '../../../shared/utilities';
 
-import './VideoCard.scss';
+import './ChannelVideoCard.scss';
 
 const VideoCard = props => {
     const vidData = props.videoData

@@ -2,8 +2,8 @@ import React from 'react'
 
 import { useStore } from '../../../store/store';
 
-import VideoCard from './VideoCard/VideoCard';
-import LoadingIndicator from '../../UI/LoadingIndicator/LoadingIndicator';
+import VideoCard from '../../../components/VidCard/ChannelVideoCard/ChannelVideoCard';
+import LoadingIndicator from '../../../components/UI/LoadingIndicator/LoadingIndicator';
 
 import './Videos.scss'
 

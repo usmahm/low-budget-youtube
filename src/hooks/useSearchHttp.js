@@ -79,7 +79,7 @@ const useSearchReducer = (curSearchState, action) => {
       };
     case "RESET_STATE": 
       return {
-        videosData: null,
+        videosData: [],
         loading: false,
         error: null,
         }
