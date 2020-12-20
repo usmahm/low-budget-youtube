@@ -27,6 +27,12 @@ const Channel = (props) => {
         }
     }, [data, dispatch])
 
+    useEffect(() => {
+        return () => {
+            dispatch('RESET_CHANNEL_DETAILS')
+        }
+    }, [dispatch])
+
     let channelRoutes = (
         <Fragment>
             <Route path={`/channel/:id/videos`} component={Videos} />

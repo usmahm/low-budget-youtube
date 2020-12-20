@@ -26,20 +26,15 @@ const configureStore = () => {
 
           return { channelPage: updatedChannelPageState }
       },
-      SET_CHANNEL_VIDEOS: (curState, APIResponse) => {
-        let updatedChannelPageState = { ...curState.channelPage }
-        updatedChannelPageState = {
-            ...updatedChannelPageState,
-            channelVideos: APIResponse 
-        }
-
-        return { channelPage: updatedChannelPageState }
+      RESET_CHANNEL_DETAILS: (curState, APIResponse) => {
+          return {
+              channelDetails: null
+          }
       }
   };
 
   const initialState = {
       channelDetails: null,
-      channelVideos: null
   };
 
   initStore(actions, { channelPage: initialState });

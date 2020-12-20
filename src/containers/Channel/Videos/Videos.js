@@ -13,13 +13,18 @@ import './Videos.scss'
 
 const Videos = (props) => {
     const [hasMore, setHasMore] = useState(false)
-    const { sendSearchRequest, searchData, nextPageToken, totalResults, fetchMoreSearchResult } = useSearchHttp();
+    let { sendSearchRequest, searchData, nextPageToken, totalResults, fetchMoreSearchResult } = useSearchHttp();
     const hardCodedLimit = 150 // Prevent loading more than 150 search results thus making API limit reach time longer
+    
+    if (totalResults <= 50) {
+        // For channels that return less than 50 max fetch results, reset total results because
+        // the API do return less than totalResults supposed to be returned
+        totalResults = searchData.length
+    }
 
     const channelID = useParams().id;
 
     useEffect(() => {
-        console.log("her")
         sendSearchRequest(`https://www.googleapis.com/youtube/v3/search?key=${APIKeys.key15}&channelId=${channelID}&part=snippet,id&order=date&maxResults=50`)
     }, [channelID, sendSearchRequest])
 
@@ -33,11 +38,13 @@ const Videos = (props) => {
 
     const getMoreVideos = () => {
         if (searchData.length > 0) {
-            if (searchData.length >= hardCodedLimit || searchData.length >= totalResults) {
+            if (searchData.length >= hardCodedLimit || searchData.length >= totalResults - 1) {
                 setHasMore(false)
                 return;
             }
-            if (searchData.length < hardCodedLimit) {
+            console.log(searchData.length)
+            console.log(totalResults)
+            if (searchData.length < hardCodedLimit && searchData.length <= totalResults - 1) {
                 fetchMoreSearchResult(`https://www.googleapis.com/youtube/v3/search?key=${APIKeys.key16}&channelId=${channelID}&pageToken=${nextPageToken}&part=snippet,id&order=date&maxResults=33`)
             }
         }
@@ -62,7 +69,7 @@ const Videos = (props) => {
                     {videos}
                 </main>
             </InfiniteScroll>
-            {searchData.length > 0 && searchData.length >= hardCodedLimit ? <p className="page-end__message">You've reached the limit of the displayable channel videos.</p> : null}
+            {searchData.length > 0 && (searchData.length >= hardCodedLimit || searchData.length >= totalResults - 1) ? <p className="page-end__message">You've reached the limit of the displayable channel videos.</p> : null}
         </div>
 
     )
