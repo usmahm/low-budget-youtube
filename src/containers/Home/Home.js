@@ -19,7 +19,7 @@ const MainPage = (props) => {
   // Handles first request to the server
   useEffect(() => {
       if (regionCode) {
-        sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=50&regionCode=${regionCode}&key=${APIKeys.key1}`)
+        sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=48&regionCode=${regionCode}&key=${APIKeys.key1}`)
       }
   }, [regionCode, sendVideosRequest]);
   
@@ -37,7 +37,7 @@ const MainPage = (props) => {
         return;
       }
       if (data.length < totalResults) {
-        fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${APIKeys.key2}`)
+        fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=48&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${APIKeys.key2}`)
       }
     } 
   }
