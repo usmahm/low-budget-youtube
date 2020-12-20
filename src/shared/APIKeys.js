@@ -13,7 +13,12 @@ const APIKeys = {
     key11: "AIzaSyDyGYfM6_JCa92KUOPgQYuHR5j6keRiU7Y", // useSearchHttp
     key12: "AIzaSyDR_xMZ8AxO6omKsglTXXzqrZVGMLBDK-g", // useSearchHttp
     key13: "AIzaSyDMq3VS0aWYcO2EZV9lQ-2QqSUrDpbma0Q", // useSearchHttp
-    key14: "AIzaSyC54VosZ4GBmFSM7OlUmx004JtI7x1qT6g" // useSearchHttp
+    key14: "AIzaSyC54VosZ4GBmFSM7OlUmx004JtI7x1qT6g", // useSearchHttp
+    key15: "AIzaSyCwUfYcjRojmjq_kirm6ZNNkLkvQYQ6vCA", // Channel Videos
+    key16: "AIzaSyBsBc1ONPmVrfnlakYpZC55fjHTBOptebQ", // Channel Videos
+    key17: "AIzaSyCHG4DDdZwEXzvW3HRWNmOas2t2KiIKEDo", // Channel
+    key18: "AIzaSyCqSp-RrIBIqAZo3JuJ1EU3R12l2uIT2r0", // useVideoHttp
+    key19: "AIzaSyCOvojgxMmjZhaFEmbY8t9Eyoivj49dI34", // useVideoHttp
 }
 
 export default APIKeys;

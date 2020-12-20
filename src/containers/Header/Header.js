@@ -17,7 +17,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const Header = React.memo((props) => {
     const [searchInput, setSearchInput] = useState('')
     const [showInput, setShowInput] = useState(false)
-    const dispatch = useStore()[1]
+    const [state, dispatch] = useStore()
     let isPathnameWatch = useLocation().pathname === "/watch";
 
     const toggleSideNav = () => {
@@ -50,6 +50,7 @@ const Header = React.memo((props) => {
                 </div>
                 <Link to="/">
                     <img src={logo} alt="Logo" />
+                    <p>{state.globalState.countryCode}</p>
                 </Link>
             </div>
             <form className={`header__center ${showInput ? 'show' : ''}`} onSubmit={submitSearchHandler}>

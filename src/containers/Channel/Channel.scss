@@ -1,4 +1,3 @@
-
 @import "../../shared/sass/variables.scss";
 @import "../../shared/sass/mixins.scss";
 
@@ -9,8 +8,8 @@
   position: relative;
 
   @include respond(tab-port) {
-    display: flex;
-    flex-flow: row wrap;
+    // display: flex;
+    // flex-flow: row wrap;
     padding-bottom: 0;
   }
 }

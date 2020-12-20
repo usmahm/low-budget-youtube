@@ -106,7 +106,7 @@ const useVideoHttp = () => {
             totalResults: response.data.pageInfo.totalResults,
             extra: reqExtra,
           });
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key8}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key18}`);
         })
         .then(response => {
             dispatchVideos({
@@ -133,7 +133,7 @@ const useVideoHttp = () => {
             nextPageToken: response.data.nextPageToken,
             extra: reqExtra,
           });
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key8}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key19}`);
         })
         .then(response => {
             dispatchVideos({

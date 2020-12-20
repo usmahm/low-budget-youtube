@@ -11,7 +11,7 @@ import './SearchResults.scss'
 
 const SearchRes = (props) => {
     const [hasMore, setHasMore] = useState(false)
-    const hardCodedLimit = 75 // Prevent loading more than 75 search results thus making API limit reach time longer
+    const hardCodedLimit = 150 // Prevent loading more than 75 search results thus making API limit reach time longer
     const { searchData, sendSearchRequest, totalResults, nextPageToken, fetchMoreSearchResult} = useSearchHttp()
     let searchQuery = new URLSearchParams(props.location.search).get('search-query');
 
@@ -20,7 +20,7 @@ const SearchRes = (props) => {
     
     // Handles first request to the server
     useEffect(() => {
-        sendSearchRequest(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&type=video&key=${APIKeys.key5}`)
+        sendSearchRequest(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&type=video&key=${APIKeys.key5}`)
     }, [sendSearchRequest, searchQuery])
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const SearchRes = (props) => {
                 return;
             }
             if (searchData.length < hardCodedLimit) {
-                fetchMoreSearchResult(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&type=video&pageToken=${nextPageToken}&key=${APIKeys.key6}`)
+                fetchMoreSearchResult(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&type=video&pageToken=${nextPageToken}&key=${APIKeys.key6}`)
             }
         }
     }

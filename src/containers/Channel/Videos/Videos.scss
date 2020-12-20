@@ -1,8 +1,29 @@
+@import "../../../shared/sass/variables.scss";
+@import "../../../shared/sass/mixins.scss";
+
 .channel-videos {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    padding: 26px 6px;
-    position: relative;
-    width: 100%;
+    .videos-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        padding: 26px 6px;
+        padding-bottom: 0;
+        position: relative;
+        width: 100%;
+    }
+
+    .page-end__message {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 34px;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-align: center;
+        
+        @include respond(tab-port) {
+            font-size: 0.9rem;
+        }
+    }
 }

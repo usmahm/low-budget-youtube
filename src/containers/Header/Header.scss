@@ -55,9 +55,23 @@
       }
     }
 
-    img {
-      height: 1.2rem;
-      object-fit: contain;
+    a {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      img {
+        height: 1.2rem;
+        object-fit: contain;
+      }
+  
+      p {
+          font-size: 0.65rem;
+        font-weight: 600;
+        margin-left: 2px;
+        line-height: 0.9;
+        color: $color-black;
+      }
     }
 
     .icon {
