@@ -36,7 +36,9 @@ const Trending = (props) => {
         setHasMore(false)
         return
       }
-      fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${APIKeys.key4}`)
+      if (data.length < totalResults) {
+        fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${APIKeys.key4}`)
+      }
     }
   }
 
