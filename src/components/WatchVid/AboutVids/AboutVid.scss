@@ -9,8 +9,12 @@
   }
 
   h2 {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 400;
+
+    @include respond(tab-port) {
+      font-size: 1.1rem;
+    }
   }
 
   div.top {
@@ -158,10 +162,11 @@
 
           .channel-name {
             color: $color-black;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 400;
-
+            
             @include respond(tab-port) {
+              font-size: 0.9rem;
               font-weight: 400;
             }
           }
@@ -169,29 +174,42 @@
       }
 
       button {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        background: none;
+        color: red;
+
         font-weight: 600;
-        color: #ffffff;
-        background-color: red;
         padding: 10px 15px;
         appearance: none;
         border: none;
         border-radius: 2px;
+        
+        @include respond(tab-port) {
+          font-size: 0.9rem;
+          background-color: $color-red;
+          color: #ffffff;
+        }
       }
     }
 
     .video-description {
-      padding-right: 6.6rem;
-      padding-left: 0;
+      padding: 0;
       
       @include respond(tab-port) {
         padding-left: 3.8rem;     
+        padding-right: 6.6rem;
+        padding-left: 0;
       }
 
       p {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        word-break: break-word;
         padding-bottom: 20px;
         line-height: 1.5;
+        
+        @include respond(tab-port) {
+          font-size: 0.9rem;
+        }
       }
     }
   }

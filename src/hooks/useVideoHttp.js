@@ -52,13 +52,11 @@ const videosReducer = (curVideosState, action) => {
         ...curVideosState,
         videosData: vidDataArray,
       };
-    // case "RESET_HOME_STATE":
-    //   return {
-    //     videosData: [],
-    //     loading: false,
-    //     error: null,
-    //     extra: null,
-    //   };
+    case "SET_ERROR":
+      return {
+        ...curVideosState,
+        error: action.error
+      };
     default:
       throw new Error("Should not be reached");
   }
@@ -115,7 +113,12 @@ const useVideoHttp = () => {
             })
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response) {
+            dispatchVideos({
+              type: "SET_ERROR",
+              error: error.response
+            })
+          }
         });
     },
     []

@@ -63,6 +63,9 @@ const useSearchReducer = (curSearchState, action) => {
       };
     case "SET_SEARCH_RESULTS_CHANNEL_ICON":
       const vidDataArray = [...curSearchState.videosData];
+      if (!action.results.items) {
+        return curSearchState
+      }
       console.log(action.results);
       Array.from(action.results.items).forEach((icon) => {
         const iconLink = icon.snippet.thumbnails.high.url;
@@ -82,6 +85,11 @@ const useSearchReducer = (curSearchState, action) => {
         videosData: [],
         loading: false,
         error: null,
+        };
+    case "SET_SEARCH_ERROR":
+        return {
+          ...curSearchState,
+          error: action.error
         }
     default:
       throw new Error("Should not be reached!");
@@ -121,6 +129,7 @@ const useSearchHttp = () => {
 
   const sendSearchRequest = useCallback(
     (url, reqExtra) => {
+      console.log("INNN")
       let channelsIdArr = [];
       axios
         .get(url)
@@ -149,6 +158,14 @@ const useSearchHttp = () => {
             type: "SET_SEARCH_RESULTS_CHANNEL_ICON",
             results: response.data,
           });
+        })
+        .catch(error => {
+          if (error.response) {
+            dispatchSearch({
+              type: "SET_SEARCH_ERROR",
+              error: error.response
+            })
+          }
         });
     },
     []

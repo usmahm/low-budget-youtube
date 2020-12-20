@@ -20,7 +20,10 @@ const SearchResultCard = (props) => {
     if (vidData) {
       if (windowSize < 292) {
         setNoOfDescChars(windowSize / 17);
-        setNoOfTitleChars(windowSize / 11);
+        setNoOfTitleChars(windowSize / 15);
+      }else if (windowSize < 600) {
+        setNoOfDescChars(windowSize / 9);
+        setNoOfTitleChars(windowSize / 9);
       } else if (windowSize < 1200) {
         setNoOfDescChars(windowSize / 9);
         setNoOfTitleChars(windowSize / 28);

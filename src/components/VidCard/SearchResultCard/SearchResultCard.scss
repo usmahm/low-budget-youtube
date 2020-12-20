@@ -45,7 +45,7 @@
         border-radius: 3px;
         background-color: rgba($color-black, 0.85);
         right: 3px;
-        bottom: 7px;
+        bottom: 3px;
         
         @include respond(tab-port) {
           right: 4px;

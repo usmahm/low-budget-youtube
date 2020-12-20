@@ -10,10 +10,12 @@ import VideoCard from '../../../components/VidCard/ChannelVideoCard/ChannelVideo
 import LoadingIndicator from '../../../components/UI/LoadingIndicator/LoadingIndicator';
 
 import './Videos.scss'
+import RequestErrorHandler from '../../../hoc/RequestErrorHandler/RequestErrorHandler';
 
 const Videos = (props) => {
-    const [hasMore, setHasMore] = useState(false)
-    let { sendSearchRequest, searchData, nextPageToken, totalResults, fetchMoreSearchResult } = useSearchHttp();
+    const [hasMore, setHasMore] = useState(false);
+    const [isAllDataFetched, setIsAllDataFetched] = useState(false)
+    let { sendSearchRequest, searchData, error, nextPageToken, totalResults, fetchMoreSearchResult } = useSearchHttp();
     const hardCodedLimit = 150 // Prevent loading more than 150 search results thus making API limit reach time longer
     
     if (totalResults <= 50) {
@@ -37,9 +39,11 @@ const Videos = (props) => {
     }, [totalResults])
 
     const getMoreVideos = () => {
+        console.log(nextPageToken)
         if (searchData.length > 0) {
-            if (searchData.length >= hardCodedLimit || searchData.length >= totalResults - 1) {
+            if (searchData.length >= hardCodedLimit || searchData.length >= totalResults - 1 || !nextPageToken) {
                 setHasMore(false)
+                setIsAllDataFetched(true)
                 return;
             }
             console.log(searchData.length)
@@ -52,6 +56,14 @@ const Videos = (props) => {
     
     
     let videos = <LoadingIndicator type="loadingBox" />
+
+    if (error) {
+        videos = (
+            <RequestErrorHandler>
+                <p>Sorry, couldn't fetch channels videos.</p>
+            </RequestErrorHandler>
+        )
+    }
 
     if (searchData.length > 0) {
         videos = searchData.map((video => <VideoCard key={video.videoId} videoData={video} />))
@@ -69,7 +81,7 @@ const Videos = (props) => {
                     {videos}
                 </main>
             </InfiniteScroll>
-            {searchData.length > 0 && (searchData.length >= hardCodedLimit || searchData.length >= totalResults - 1) ? <p className="page-end__message">You've reached the limit of the displayable channel videos.</p> : null}
+            {isAllDataFetched ? <p className="page-end__message">You've reached the limit of the displayable channel videos.</p> : null}
         </div>
 
     )

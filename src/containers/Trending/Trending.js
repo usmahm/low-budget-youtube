@@ -6,12 +6,13 @@ import useVideoHttp from '../../hooks/useVideoHttp';
 import { useStore } from '../../store/store';
 
 import TrendingVidCard from "../../components/VidCard/TrendingVidCard/TrendingVidCard";
+import RequestErrorHandler from '../../hoc/RequestErrorHandler/RequestErrorHandler';
 import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 import "./Trending.scss";
 
 const Trending = (props) => {
   const [hasMore, setHasMore] = useState(false)
-  const { data, sendVideosRequest, fetchMoreVideos, nextPageToken, totalResults} = useVideoHttp();
+  const { data, sendVideosRequest, fetchMoreVideos, error, nextPageToken, totalResults} = useVideoHttp();
   const state = useStore()[0]
 
   const regionCode = state.globalState.countryCode;
@@ -50,6 +51,17 @@ const Trending = (props) => {
     ))
   }
 
+  if (data.length === 0 && error) {
+    if (error.status === 403) {
+      videos = (
+        <RequestErrorHandler>
+          <p>Can't Load Videos at the moment.</p>
+          <p>Try Reloading the page after some time.</p>
+        </RequestErrorHandler>
+      ) 
+    }
+  }
+
   return (
     <main className="trending">
       <InfiniteScroll
@@ -62,7 +74,7 @@ const Trending = (props) => {
           {videos}
         </div>
       </InfiniteScroll>
-      {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of the page.</p> : null}
+      {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of this page.</p> : null}
     </main>
   );
 };

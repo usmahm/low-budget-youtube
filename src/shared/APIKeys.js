@@ -7,7 +7,7 @@ const APIKeys = {
     key5: "AIzaSyADE6JG6s_HpU-AMFTNcO_PvmE_yt4WgLc", // Search results
     key6: "AIzaSyDVJP-R4t3T4Qj2FLMsgaAB39B4JlWvahQ", // Search results
     key7: "AIzaSyAI3frSXVHODo5CIamVABLPp4hZM0elCkw", // WatchVid 
-    key8: "AIzaSyD03FvXujunXtD23SmDjTv-JZCbu4CceqE", // WatchVid 
+    key8: "AIzaSyD03FvXujunXtD23SmDjTv-JZCbu4CceqE", // WatchVid Re-add
     key9: "AIzaSyCfCncJTmm9pd_VpexfAAg3mlCddRM7C7s", // WatchVid 
     key10: "AIzaSyD0ibybBSF9VDxGj80unEVaezAPV9DFHcU", // WatchVid 
     key11: "AIzaSyDyGYfM6_JCa92KUOPgQYuHR5j6keRiU7Y", // useSearchHttp
@@ -19,6 +19,9 @@ const APIKeys = {
     key17: "AIzaSyCHG4DDdZwEXzvW3HRWNmOas2t2KiIKEDo", // Channel
     key18: "AIzaSyCqSp-RrIBIqAZo3JuJ1EU3R12l2uIT2r0", // useVideoHttp
     key19: "AIzaSyCOvojgxMmjZhaFEmbY8t9Eyoivj49dI34", // useVideoHttp
+
+    key20: "AIzaSyD0K4wMDdI_brcTYckvcfSyzeP53AE0jNk", //
+    exhaust: "AIzaSyD-o-aKL9q8Zh25uYSRZAj-KQQu8UVHFY4",
 }
 
 export default APIKeys;

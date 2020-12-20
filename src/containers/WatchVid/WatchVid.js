@@ -9,6 +9,7 @@ import APIKeys from '../../shared/APIKeys';
 import WatchVidCard from "../../components/VidCard/WatchVidCard/WatchVidCard";
 import AboutVid from "../../components/WatchVid/AboutVids/AboutVid";
 import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
+import RequestErrorHandler from '../../hoc/RequestErrorHandler/RequestErrorHandler';
 
 import "./WatchVid.scss";
 
@@ -16,7 +17,7 @@ const WatchVid = React.memo((props) => {
   const [hasMore, setHasMore] = useState(false)
   const hardCodedLimit = 75 // Prevent loading more than 75 search results thus making API limit reach time longer
   const { sendRequest, data, reqExtra } = useHttp();
-  const { sendSearchRequest, searchData, resetSearchState, totalResults, nextPageToken, fetchMoreSearchResult } = useSearchHttp();
+  const { sendSearchRequest, searchData, resetSearchState, error, totalResults, nextPageToken, fetchMoreSearchResult } = useSearchHttp();
   const [ state, dispatch ] = useStore();
 
   const relatedVideos = searchData;
@@ -25,6 +26,7 @@ const WatchVid = React.memo((props) => {
   const isOtherVidDetailsFetched = state.watchVidPage.isOtherVidDetailsFetched;
   const channelID = state.watchVidPage.videoDetails ? state.watchVidPage.videoDetails.channelID : null;
 
+  // const APIKey = ""
   let videoId = new URLSearchParams(props.location.search).get('videoId');
   let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
   CORSAnywhereURL = "";
@@ -37,7 +39,7 @@ const WatchVid = React.memo((props) => {
         `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${APIKeys.key7}`
       );
       // FETCHES DATA FOR RELATED VIDEOS SECTION
-      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKeys.key8}`)
+      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKeys.key20}`)
       dispatch('SET_WVID_DATA_IS_FETCHED', {isVidDetailsFetched: true})
     } else if (!isOtherVidDetailsFetched && channelID) {
       // FETCHES DATA FOR VIDEO CHANNEL's DETAILS
@@ -88,7 +90,6 @@ const WatchVid = React.memo((props) => {
     }
 }
 
-
   return (
     <div className="watchvid-page">
       <div className="video">
@@ -120,7 +121,8 @@ const WatchVid = React.memo((props) => {
             {relatedVideos ? relatedVideos.map((videoData) => <WatchVidCard key={videoData.videoId} videoDetails={videoData} />): <LoadingIndicator type="loadingBox" top='0' />}
           </div>
         </InfiniteScroll>
-        {searchData.length > 0 && searchData.length >= hardCodedLimit ? <p className="page-end__message">You've reached this end of the related videos.</p> : null}
+        {error ? <RequestErrorHandler><p>Sorry, couldn't fetch related videos.</p></RequestErrorHandler> : null}
+        {searchData.length > 0 && searchData.length >= hardCodedLimit ? <p className="page-end__message">You've reached the end of the related videos.</p> : null}
       </div>
     </div>
   );

@@ -6,12 +6,13 @@ import useVideoHttp from '../../hooks/useVideoHttp';
 import { useStore } from '../../store/store';
 
 import HomeVidCard from "../../components/VidCard/HomeVidCard/HomeVidCard";
+import RequestErrorHandler from '../../hoc/RequestErrorHandler/RequestErrorHandler';
 import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 import "./Home.scss";
 
 const MainPage = (props) => {
   const [hasMore, setHasMore] = useState(false)
-  const { data, sendVideosRequest, nextPageToken, totalResults, fetchMoreVideos } = useVideoHttp();
+  const { data, sendVideosRequest, nextPageToken, error, totalResults, fetchMoreVideos } = useVideoHttp();
   const state = useStore()[0]
 
   const regionCode = state.globalState.countryCode;
@@ -19,6 +20,7 @@ const MainPage = (props) => {
   // Handles first request to the server
   useEffect(() => {
       if (regionCode) {
+        console.log(APIKeys.exhaust)
         sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=48&regionCode=${regionCode}&key=${APIKeys.key1}`)
       }
   }, [regionCode, sendVideosRequest]);
@@ -50,6 +52,17 @@ const MainPage = (props) => {
     ))
   }
 
+  if (data.length === 0 && error) {
+    if (error.status === 403) {
+      videos = (
+        <RequestErrorHandler>
+          <p>Can't load videos at the moment.</p>
+          <p>Try reloading the page after some time.</p>
+        </RequestErrorHandler>
+      ) 
+    }
+  }
+
   return (
       <main className="home-main">
         <InfiniteScroll
@@ -62,7 +75,7 @@ const MainPage = (props) => {
               {videos}
           </div>
         </InfiniteScroll>
-        {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of the page.</p> : null}
+        {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of this page.</p> : null}
       </main>
   );
 };

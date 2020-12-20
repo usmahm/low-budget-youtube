@@ -6,13 +6,14 @@ import useSearchHttp from '../../hooks/useSearchHttp';
 
 import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 import SearchResultCard from '../../components/VidCard/SearchResultCard/SearchResultCard';
+import RequestErrorHandler from '../../hoc/RequestErrorHandler/RequestErrorHandler';
 
 import './SearchResults.scss'
 
 const SearchRes = (props) => {
     const [hasMore, setHasMore] = useState(false)
     const hardCodedLimit = 150 // Prevent loading more than 75 search results thus making API limit reach time longer
-    const { searchData, sendSearchRequest, totalResults, nextPageToken, fetchMoreSearchResult} = useSearchHttp()
+    const { searchData, sendSearchRequest, error, totalResults, nextPageToken, fetchMoreSearchResult} = useSearchHttp()
     let searchQuery = new URLSearchParams(props.location.search).get('search-query');
 
     // let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
@@ -49,6 +50,17 @@ const SearchRes = (props) => {
             <SearchResultCard key={vidData.videoId} videosData={vidData} />
           ))
     }
+
+    if (searchData.length === 0 && error) {
+        if (error.status === 403) {
+          videos = (
+            <RequestErrorHandler>
+              <p>Can't load search results at the moment.</p>
+              <p>Try reloading the page after some time.</p>
+            </RequestErrorHandler>
+          ) 
+        }
+      }
 
     return (
         <main className="search-page">

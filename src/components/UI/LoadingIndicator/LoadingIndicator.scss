@@ -96,9 +96,9 @@
   height: 50px;
   @include centerContent;
   
-  @include respond(tab-port) {
-    height: 60px;
-  }
+  // @include respond(tab-port) {
+  //   height: 60px;
+  // }
 
   .spinner {
     display: block;
@@ -110,10 +110,10 @@
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
     
-    @include respond(tab-port) {
-      width: 40px;
-      height: 40px;
-    }
+    // @include respond(tab-port) {
+    //   width: 40px;
+    //   height: 40px;
+    // }
   }
   
   @keyframes rotation {
