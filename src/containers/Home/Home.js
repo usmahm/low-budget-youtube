@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import InfiniteScroll from 'react-infinite-scroller';
+import APIKeys from '../../shared/APIKeys';
 
 import useVideoHttp from '../../hooks/useVideoHttp';
 import { useStore } from '../../store/store';
@@ -8,33 +10,56 @@ import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndica
 import "./Home.scss";
 
 const MainPage = (props) => {
-  const { data, sendVideosRequest } = useVideoHttp();
+  const [hasMore, setHasMore] = useState(false)
+  const { data, sendVideosRequest, nextPageToken, totalResults, fetchMoreVideos } = useVideoHttp();
   const state = useStore()[0]
 
-  // let CORSAnywhereURL = "https://cors-anywhere.herokuapp.com/";
-  let APIKey = 'AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8' // Key 1
   const regionCode = state.globalState.countryCode;
-  // CORSAnywhereURL = "";
 
-  // Handles request to the server
+  // Handles first request to the server
   useEffect(() => {
       if (regionCode) {
-        sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&key=${APIKey}`)
+        sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=50&regionCode=${regionCode}&key=${APIKeys.key1}`)
       }
-  }, [APIKey, regionCode, sendVideosRequest]);
+  }, [regionCode, sendVideosRequest]);
+  
+  useEffect(() => {
+    // Checks if first API call has been made thus nextPageToken would have been set for the next API call
+    if (totalResults) {
+      setHasMore(true)
+    }
+  }, [totalResults])
 
+  const getMoreVideos = () => {
+    if (data.length > 0) {
+      if (data.length >= totalResults) {
+        setHasMore(false);
+        return;
+      }
+      fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${APIKeys.key2}`)
+    } 
+  }
+  
   let videos = <LoadingIndicator />
-
-  if (data) {
+  
+  if (data.length > 0) {
     videos = data.map((vidData) => (
       <HomeVidCard key={vidData.videoId} videosData={vidData} />
     ))
   }
 
   return (
-    <main className="home">
-      {videos}
-    </main>
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={getMoreVideos}
+        hasMore={hasMore}
+        loader={<LoadingIndicator key="spinner" type="spinner" />}
+      >
+        <main className="home" key="main">
+            {videos}
+        </main>
+        {data.length > 0 && data.length >= totalResults ? <p className="page-end__message">You've reached this end of the page.</p> : null}
+      </InfiniteScroll>
   );
 };
 

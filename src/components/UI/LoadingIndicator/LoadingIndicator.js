@@ -15,6 +15,12 @@ const LoadingIndicator = (props) => {
                     <div class="rect5"></div>
                 </div>
             )
+        } else if (props.type === 'spinner') {
+            indicator = (
+                <div className="spinner-wrapper">
+                    <span className="spinner"></span>
+                </div>
+            )
         }
     }
 

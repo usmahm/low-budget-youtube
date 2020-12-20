@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
+// import InfiniteScroll from 'react-infinite-scroller';
+// import APIKeys from '../../shared/APIKeys';
 
-// import useVideoHttp from '../../hooks/useSearchHttp';
+import useSearchHttp from '../../hooks/useSearchHttp';
+
 import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
-
 import SearchResultCard from '../../components/VidCard/SearchResultCard/SearchResultCard';
 
 import './SearchResults.scss'
-import useSearchHttp from '../../hooks/useSearchHttp';
 
 const SearchRes = (props) => {
     const { searchData, sendSearchRequest} = useSearchHttp()
