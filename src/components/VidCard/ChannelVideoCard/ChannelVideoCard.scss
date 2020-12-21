@@ -19,13 +19,14 @@
     width: 9rem;
     margin-right: 7px;
     flex-shrink: 0;
-    height: 7.5625rem;
+    height: 5.0625rem;
     background-color: $color-grey-l4;
     overflow: hidden;
-
+    
     @include respond(tab-port) {     
-        margin-bottom: 7px;
-        width: 100%;
+      margin-bottom: 7px;
+      width: 100%;
+      height: 7.3125rem;
     }
 
     div {
