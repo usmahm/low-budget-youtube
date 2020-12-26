@@ -21,7 +21,6 @@ const initialState = {
 const videosReducer = (curVideosState, action) => {
   switch (action.type) {
     case "RESPONSE":
-      console.log(action)
       return {
         ...curVideosState,
         videosData: action.videosDataArr,
@@ -39,7 +38,6 @@ const videosReducer = (curVideosState, action) => {
       }
     case "SET_CHANNEL_ICONS":
       const vidDataArray = [...curVideosState.videosData];
-      console.log(action)
       Array.from(action.response.items).forEach((icon) => {
         const iconLink = icon.snippet.thumbnails.high.url;
         vidDataArray.forEach((videoData, index) => {

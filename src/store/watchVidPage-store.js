@@ -9,7 +9,6 @@ const configureStore = () => {
   const actions = {
     SET_WVID_PAGE_VIDEO_DETAILS: (curState, APIResponse) => {
       const response = APIResponse.items[0];
-      console.log(response);
       const videoData = {
         title: response.snippet.title,
         datePosted: moment(response.snippet.publishedAt).format("ll"),
@@ -34,7 +33,6 @@ const configureStore = () => {
       return { watchVidPage: updatedWatchVidPageState };
     },
     SET_WVID_CHANNEL_DETAILS: (curState, APIResponse) => {
-      console.log(APIResponse)
       let updatedWatchVidPageState = { ...curState.watchVidPage };
       updatedWatchVidPageState = {
         ...updatedWatchVidPageState,
@@ -55,7 +53,6 @@ const configureStore = () => {
       return { watchVidPage: updatedWatchVidPageState };
     },
     RESET_WDIV_STATE: (curState) => {
-      console.log('RESET')
       return {
         watchVidPage: {
           relatedVideos: null,

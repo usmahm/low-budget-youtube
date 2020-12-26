@@ -30,8 +30,6 @@ const useSearchReducer = (curSearchState, action) => {
         const filteredResults = action.results.filter(result => {
           return !curSearchState.videosData.some(e => e.videoId === result.videoId)
         }) 
-        console.log(curSearchState.videosData)       
-        console.log(filteredResults)
       
         return {
           ...curSearchState,
@@ -42,7 +40,6 @@ const useSearchReducer = (curSearchState, action) => {
           nextPageToken: action.nextPageToken,
         };
     case "SET_SEARCH_RESULTS_DATA1":
-      console.log(curSearchState);
       const videoDataArray = [...curSearchState.videosData];
       Array.from(action.results.items).forEach((vidData) => {
         videoDataArray.forEach((videoData, index) => {
@@ -56,7 +53,6 @@ const useSearchReducer = (curSearchState, action) => {
           }
         });
       });
-      console.log(videoDataArray);
       return {
         ...curSearchState,
         videosData: videoDataArray,
@@ -66,7 +62,6 @@ const useSearchReducer = (curSearchState, action) => {
       if (!action.results.items) {
         return curSearchState
       }
-      console.log(action.results);
       Array.from(action.results.items).forEach((icon) => {
         const iconLink = icon.snippet.thumbnails.high.url;
         vidDataArray.forEach((videoData, index) => {
@@ -75,7 +70,6 @@ const useSearchReducer = (curSearchState, action) => {
           }
         });
       });
-      console.log(vidDataArray);
       return {
         ...curSearchState,
         videosData: vidDataArray,
@@ -129,12 +123,10 @@ const useSearchHttp = () => {
 
   const sendSearchRequest = useCallback(
     (url, reqExtra) => {
-      console.log("INNN")
       let channelsIdArr = [];
       axios
         .get(url)
         .then((response) => {
-          console.log(response)
           const [channelsIdArray, videoDataArray, videosId] = parseResponse(response)
           channelsIdArr = [...channelsIdArray]
           dispatchSearch({
@@ -179,7 +171,6 @@ const useSearchHttp = () => {
         .then((response) => {
           const [channelsIdArray, videoDataArray, videosId] = parseResponse(response)
           channelsIdArr = [...channelsIdArray]
-          console.log(channelsIdArr)
           dispatchSearch({
             type: "SET_MORE_SEARCH_RESULTS",
             results: videoDataArray,
@@ -188,7 +179,6 @@ const useSearchHttp = () => {
           return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKeys.key13}`);
         })
         .then((response) => {
-            console.log(response.data)
           dispatchSearch({
             type: "SET_SEARCH_RESULTS_DATA1",
             results: response.data,
@@ -197,7 +187,6 @@ const useSearchHttp = () => {
           return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key14}`);
         })
         .then((response) => {
-          console.log(response)
           dispatchSearch({
             type: "SET_SEARCH_RESULTS_CHANNEL_ICON",
             results: response.data,

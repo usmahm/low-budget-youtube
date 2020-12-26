@@ -6,7 +6,6 @@ const configureStore = () => {
   const actions = {
       SET_ABOUT_CHANNEL: (curState, APIResponse) => {
           const response = APIResponse.items[0]
-          console.log(response)
           const channelData = {
               channelID: response.id,
               channelName: response.snippet.title,

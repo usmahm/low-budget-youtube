@@ -23,7 +23,6 @@ const App = props => {
 
   useEffect(() => {
     if (data) {
-      console.log(data)
       dispatch('SET_COUNTRY_CODE', data.country_code)
     }
   }, [data, dispatch])

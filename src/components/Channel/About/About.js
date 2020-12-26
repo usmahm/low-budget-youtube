@@ -4,7 +4,7 @@ const About = props => {
     console.log('RENDERING')
     return (
         <p>
-            ABout
+            About
         </p>
     )
 }

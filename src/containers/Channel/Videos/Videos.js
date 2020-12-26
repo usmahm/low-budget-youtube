@@ -34,20 +34,16 @@ const Videos = (props) => {
         // Checks if first API call has been made thus nextPageToken would have been set for the next API call
         if (totalResults) {
             setHasMore(true)
-            console.log(totalResults)
         }
     }, [totalResults])
 
     const getMoreVideos = () => {
-        console.log(nextPageToken)
         if (searchData.length > 0) {
             if (searchData.length >= hardCodedLimit || searchData.length >= totalResults - 1 || !nextPageToken) {
                 setHasMore(false)
                 setIsAllDataFetched(true)
                 return;
             }
-            console.log(searchData.length)
-            console.log(totalResults)
             if (searchData.length < hardCodedLimit && searchData.length <= totalResults - 1) {
                 fetchMoreSearchResult(`https://www.googleapis.com/youtube/v3/search?key=${APIKeys.key16}&channelId=${channelID}&pageToken=${nextPageToken}&part=snippet,id&order=date&maxResults=33`)
             }

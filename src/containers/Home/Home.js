@@ -20,7 +20,6 @@ const MainPage = (props) => {
   // Handles first request to the server
   useEffect(() => {
       if (regionCode) {
-        console.log(APIKeys.exhaust)
         sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=48&regionCode=${regionCode}&key=${APIKeys.key1}`)
       }
   }, [regionCode, sendVideosRequest]);
