@@ -1,3 +1,5 @@
+// Please do not use any of these keys, you can get yours at https://console.developers.google.com/
+
 // Using different keys in different components to prevent reaching API call Limit early
 const APIKeys = {
     key1: "AIzaSyC0-Cu83uFnN2GDL04ISyf8NO674ElR2P8", // Home Page
