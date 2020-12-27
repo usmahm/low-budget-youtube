@@ -102,6 +102,7 @@ const useVideoHttp = () => {
             totalResults: response.data.pageInfo.totalResults,
             extra: reqExtra,
           });
+          console.log('useVideoHttp key18')
           return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key18}`);
         })
         .then(response => {
@@ -134,6 +135,7 @@ const useVideoHttp = () => {
             nextPageToken: response.data.nextPageToken,
             extra: reqExtra,
           });
+          console.log('useVideoHttp key18')
           return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key19}`);
         })
         .then(response => {

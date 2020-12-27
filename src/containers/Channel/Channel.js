@@ -18,6 +18,7 @@ const Channel = (props) => {
     const channelID = useParams().id;
 
     useEffect(() => {
+        console.log('Channel key17')
         sendRequest(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics%2CbrandingSettings&id=${channelID}&key=${APIKeys.key17}`)
     }, [channelID, sendRequest])
 
