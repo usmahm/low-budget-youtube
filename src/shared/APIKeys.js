@@ -13,13 +13,13 @@ const APIKeys = {
     key9: " AIzaSyD0K4wMDdI_brcTYckvcfSyzeP53AE0jNk", // WatchVid /APIkey 20
     key10: "AIzaSyD0ibybBSF9VDxGj80unEVaezAPV9DFHcU", // WatchVid 
     key11: "AIzaSyDyGYfM6_JCa92KUOPgQYuHR5j6keRiU7Y", // useSearchHttp
-    key12: "AIzaSyBLsHsrLF8Vb95T93njdTm2TFVnOCSi03k", // useSearchHttp /key 6
+    key12: "AIzaSyDe-yDYwDUvXC2qWZ01syvRajCuFy-ss2k", // useSearchHttp /key 12
     key13: "AIzaSyDMq3VS0aWYcO2EZV9lQ-2QqSUrDpbma0Q", // useSearchHttp
     key14: "AIzaSyD_E-HIVl_UNNE5GF4DgnBhS4NaySYlfEs", // useSearchHttp /key 7
     key15: "AIzaSyCwUfYcjRojmjq_kirm6ZNNkLkvQYQ6vCA", // Channel Videos
     key16: "AIzaSyBsBc1ONPmVrfnlakYpZC55fjHTBOptebQ", // Channel Videos
     key17: "AIzaSyBfF8wZ4VuydCPr-zWP7cCD4lEiX9BafbY", // Channel /key 8
-    key18: "AIzaSyDiyXwdqX0bCekq6oW0WUsYPixKz1AKlJw", // useVideoHttp /key 9
+    key18: "AIzaSyBal0CGG54jiOoURCXTSSwsO2r0ALyYrZ0", // useVideoHttp /key 11
     key19: "AIzaSyASz3eN8oXJ3BYlD62LQCJ8ClKkFpxVbns", // useVideoHttp /key 10
 
     key20: "AIzaSyD0K4wMDdI_brcTYckvcfSyzeP53AE0jNk", //

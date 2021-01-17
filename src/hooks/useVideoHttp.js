@@ -90,9 +90,11 @@ const useVideoHttp = () => {
   // Only used to make first First API call which will return next Page Token used in subsequent calls
   const sendVideosRequest = useCallback(
     (url, reqExtra) => {
+      console.log(url)
       axios
         .get(url)
         .then((response) => {
+          console.log(response)
           const [videoDataArray, channelIDsArr] = parseResponse(response)
 
           dispatchVideos({
