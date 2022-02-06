@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import APIKeys from '../../shared/APIKeys';
 
 import useSearchHttp from '../../hooks/useSearchHttp';
 
@@ -21,7 +20,7 @@ const SearchRes = (props) => {
     
     // Handles first request to the server
     useEffect(() => {
-        sendSearchRequest(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&type=video&key=${APIKeys.key5}`)
+        sendSearchRequest(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&type=video&key=${process.env.REACT_APP_KEY_5}`)
     }, [sendSearchRequest, searchQuery])
 
     useEffect(() => {
@@ -38,7 +37,7 @@ const SearchRes = (props) => {
                 return;
             }
             if (searchData.length < hardCodedLimit) {
-                fetchMoreSearchResult(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&type=video&pageToken=${nextPageToken}&key=${APIKeys.key6}`)
+                fetchMoreSearchResult(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&type=video&pageToken=${nextPageToken}&key=${process.env.REACT_APP_KEY_6}`)
             }
         }
     }

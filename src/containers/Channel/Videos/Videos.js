@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, withRouter} from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
-import APIKeys from '../../../shared/APIKeys';
 
 import useSearchHttp from '../../../hooks/useSearchHttp'
 // import { useStore } from '../../../store/store';
@@ -27,7 +26,7 @@ const Videos = (props) => {
     const channelID = useParams().id;
 
     useEffect(() => {
-        sendSearchRequest(`https://www.googleapis.com/youtube/v3/search?key=${APIKeys.key15}&channelId=${channelID}&part=snippet,id&order=date&maxResults=50`)
+        sendSearchRequest(`https://www.googleapis.com/youtube/v3/search?key=${process.env.REACT_APP_KEY_15}&channelId=${channelID}&part=snippet,id&order=date&maxResults=50`)
     }, [channelID, sendSearchRequest])
 
     useEffect(() => {
@@ -45,7 +44,7 @@ const Videos = (props) => {
                 return;
             }
             if (searchData.length < hardCodedLimit && searchData.length <= totalResults - 1) {
-                fetchMoreSearchResult(`https://www.googleapis.com/youtube/v3/search?key=${APIKeys.key16}&channelId=${channelID}&pageToken=${nextPageToken}&part=snippet,id&order=date&maxResults=33`)
+                fetchMoreSearchResult(`https://www.googleapis.com/youtube/v3/search?key=${process.env.REACT_APP_KEY_16}&channelId=${channelID}&pageToken=${nextPageToken}&part=snippet,id&order=date&maxResults=33`)
             }
         }
     }
@@ -68,11 +67,11 @@ const Videos = (props) => {
     return (
         <div className="channel-videos">
             <InfiniteScroll
-                    pageStart={0}
-                    loadMore={getMoreVideos}
-                    hasMore={hasMore}
-                    loader={<LoadingIndicator key="spinner" type="spinner" />}
-                >
+                pageStart={0}
+                loadMore={getMoreVideos}
+                hasMore={hasMore}
+                loader={<LoadingIndicator key="spinner" type="spinner" />}
+            >
                 <main className="videos-wrapper">
                     {videos}
                 </main>

@@ -3,7 +3,6 @@ import { Route, useParams } from 'react-router-dom';
 
 import useHttp from '../../hooks/useHttp';
 import { useStore } from "../../store/store";
-import APIKeys from '../../shared/APIKeys'
 
 import Header from './Header/Header';
 import Videos from './Videos/Videos';
@@ -18,8 +17,7 @@ const Channel = (props) => {
     const channelID = useParams().id;
 
     useEffect(() => {
-        console.log('Channel key17')
-        sendRequest(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics%2CbrandingSettings&id=${channelID}&key=${APIKeys.key17}`)
+        sendRequest(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics%2CbrandingSettings&id=${channelID}&key=${process.env.REACT_APP_KEY_17}`)
     }, [channelID, sendRequest])
 
     useEffect(() => {

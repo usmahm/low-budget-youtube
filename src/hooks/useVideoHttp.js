@@ -1,6 +1,5 @@
 import { useCallback, useReducer } from "react";
 import axios from "axios";
-import APIKeys from '../shared/APIKeys';
 
 import {
   parseDuration,
@@ -90,11 +89,9 @@ const useVideoHttp = () => {
   // Only used to make first First API call which will return next Page Token used in subsequent calls
   const sendVideosRequest = useCallback(
     (url, reqExtra) => {
-      console.log(url)
       axios
         .get(url)
         .then((response) => {
-          console.log(response)
           const [videoDataArray, channelIDsArr] = parseResponse(response)
 
           dispatchVideos({
@@ -104,8 +101,7 @@ const useVideoHttp = () => {
             totalResults: response.data.pageInfo.totalResults,
             extra: reqExtra,
           });
-          console.log('useVideoHttp key18')
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key18}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${process.env.REACT_APP_KEY_18}`);
         })
         .then(response => {
             dispatchVideos({
@@ -137,8 +133,7 @@ const useVideoHttp = () => {
             nextPageToken: response.data.nextPageToken,
             extra: reqExtra,
           });
-          console.log('useVideoHttp key18')
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key19}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIDsArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${process.env.REACT_APP_KEY_19}`);
         })
         .then(response => {
             dispatchVideos({

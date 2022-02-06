@@ -1,6 +1,5 @@
 import { useCallback, useReducer } from "react";
 import axios from "axios";
-import APIKeys from '../shared/APIKeys';
 
 import {
   parseDuration,
@@ -135,16 +134,14 @@ const useSearchHttp = () => {
             nextPageToken: response.data.nextPageToken,
             totalResults: response.data.pageInfo.totalResults   
           });
-          console.log('useSearchHttp key11')
-          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKeys.key11}`);
+          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${process.env.REACT_APP_KEY_11}`);
         })
         .then((response) => {
           dispatchSearch({
             type: "SET_SEARCH_RESULTS_DATA1",
             results: response.data,
           });
-          console.log('useSearchHttp key12')
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key12}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${process.env.REACT_APP_KEY_12}`);
         })
         .then((response) => {
           dispatchSearch({
@@ -177,16 +174,14 @@ const useSearchHttp = () => {
             results: videoDataArray,
             nextPageToken: response.data.nextPageToken
           });
-          console.log('useSearchHttp key13')
-          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${APIKeys.key13}`);
+          return axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=statistics%2CcontentDetails&id=${videosId.join(",")}&key=${process.env.REACT_APP_KEY_13}`);
         })
         .then((response) => {
           dispatchSearch({
             type: "SET_SEARCH_RESULTS_DATA1",
             results: response.data,
           });
-          console.log('useSearchHttp key14')
-          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${APIKeys.key14}`);
+          return axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelsIdArr.join(",")}&fields=items(id%2Csnippet%2Fthumbnails)&key=${process.env.REACT_APP_KEY_14}`);
         })
         .then((response) => {
           dispatchSearch({

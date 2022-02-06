@@ -39,7 +39,10 @@ const AboutVid = React.memo(props => {
                         </Link>
                         <span>
                             <p className="channel-name">{videoDetails.channelName}</p>
-                            <p>{videoDetails.subscriberCount} subscribers</p>
+                            <p>
+                                {videoDetails.subscriberCount}&nbsp;
+                                { videoDetails.subscriberCount !== 'HIDDEN' && <span>subscribers</span>}
+                            </p>
                         </span>
                     </div>
                     <button>SUBSCRIBE</button>

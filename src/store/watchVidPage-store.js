@@ -38,7 +38,7 @@ const configureStore = () => {
         ...updatedWatchVidPageState,
         videoDetails: {
           ...updatedWatchVidPageState.videoDetails,
-          subscriberCount: parseNumber(APIResponse.items[0].statistics.subscriberCount),
+          subscriberCount: APIResponse.items[0].statistics.hiddenSubscriberCount ? 'HIDDEN' : parseNumber(APIResponse.items[0].statistics.subscriberCount),
           channelIcon: APIResponse.items[0].snippet.thumbnails.default.url,
         },
       };

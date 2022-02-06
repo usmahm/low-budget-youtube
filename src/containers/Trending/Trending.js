@@ -1,6 +1,5 @@
 import React, { useEffect, useState} from "react";
 import InfiniteScroll from 'react-infinite-scroller';
-import APIKeys from '../../shared/APIKeys';
 
 import useVideoHttp from '../../hooks/useVideoHttp';
 import { useStore } from '../../store/store';
@@ -20,7 +19,7 @@ const Trending = (props) => {
   // Handles first request to the server
   useEffect(() => {
     if (regionCode) {
-      sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=20&regionCode=${regionCode}&key=${APIKeys.key3}`);
+      sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=20&regionCode=${regionCode}&key=${process.env.REACT_APP_KEY_3}`);
     }
   }, [regionCode, sendVideosRequest])
 
@@ -38,7 +37,7 @@ const Trending = (props) => {
         return
       }
       if (data.length < totalResults) {
-        fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${APIKeys.key4}`)
+        fetchMoreVideos(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=40&regionCode=${regionCode}&pageToken=${nextPageToken}&key=${process.env.REACT_APP_KEY_4}`)
       }
     }
   }

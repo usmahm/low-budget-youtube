@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useStore } from '../../store/store'
 import useHttp from "../../hooks/useHttp";
 import useSearchHttp from "../../hooks/useSearchHttp";
-import APIKeys from '../../shared/APIKeys';
 
 import WatchVidCard from "../../components/VidCard/WatchVidCard/WatchVidCard";
 import AboutVid from "../../components/WatchVid/AboutVids/AboutVid";
@@ -36,15 +35,15 @@ const WatchVid = React.memo((props) => {
     if (!isVidDetailsFetched) {
       // FETCHES DATA FOR VIDEO
       sendRequest(
-        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${APIKeys.key7}`
+        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${process.env.REACT_APP_KEY_7}`
       );
       // FETCHES DATA FOR RELATED VIDEOS SECTION
-      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${APIKeys.key20}`)
+      sendSearchRequest(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&key=${process.env.REACT_APP_KEY_20}`)
       dispatch('SET_WVID_DATA_IS_FETCHED', {isVidDetailsFetched: true})
     } else if (!isOtherVidDetailsFetched && channelID) {
       // FETCHES DATA FOR VIDEO CHANNEL's DETAILS
       sendRequest(
-        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${channelID}&key=${APIKeys.key9}`,
+        `${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics&id=${channelID}&key=${process.env.REACT_APP_KEY_9}`,
         {
           identifier: "GET_WVID_CHANNEL_DATA",
         }
@@ -85,7 +84,7 @@ const WatchVid = React.memo((props) => {
             return;
         }
         if (searchData.length < hardCodedLimit) {
-            fetchMoreSearchResult(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&pageToken=${nextPageToken}&key=${APIKeys.key10}`)
+            fetchMoreSearchResult(`${CORSAnywhereURL}https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&maxResults=20&type=video&pageToken=${nextPageToken}&key=${process.env.REACT_APP_KEY_10}`)
         }
     }
 }
