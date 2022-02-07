@@ -24,6 +24,8 @@ const App = props => {
   useEffect(() => {
     if (data) {
       dispatch('SET_COUNTRY_CODE', data.country_code)
+    } else {
+      dispatch('CANT_FETCH_COUNTRY_CODE')
     }
   }, [data, dispatch])
   

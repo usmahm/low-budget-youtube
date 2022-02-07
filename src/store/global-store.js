@@ -25,6 +25,14 @@ const configureStore = () => {
         countryCode: countryCode
       };
       return { globalState: updatedglobalState }
+    },
+    CANT_FETCH_COUNTRY_CODE: (curState) => {
+      return {
+        globalState: {
+          ...curState.globalState,
+          cantFetch: true,
+        }
+      }
     }
   };
 

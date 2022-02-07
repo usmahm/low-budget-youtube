@@ -15,13 +15,14 @@ const Trending = (props) => {
   const state = useStore()[0]
 
   const regionCode = state.globalState.countryCode;
+  const cantFetch = state.globalState.cantFetch;
 
   // Handles first request to the server
   useEffect(() => {
-    if (regionCode) {
+    if (regionCode || cantFetch) {
       sendVideosRequest(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&chart=mostPopular&maxResults=20&regionCode=${regionCode}&key=${process.env.REACT_APP_KEY_3}`);
     }
-  }, [regionCode, sendVideosRequest])
+  }, [regionCode, sendVideosRequest, cantFetch])
 
   useEffect(() => {
     // Checks if first API call has been made thus nextPageToken would have been set for the next API call
